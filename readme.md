@@ -64,3 +64,7 @@ console.log(`Installation: ${`npm install styled-terminal`.appendStyle({
     weight:'light'
 })}`);
 ```
+
+[npm-image]: https://img.shields.io/npm/v/styled-terminal.svg
+[npm-url]: https://www.npmjs.com/package/styled-terminal
+[downloads-image]: https://img.shields.io/npm/dm/styled-terminal.svg
