@@ -6,6 +6,7 @@
   "scripts": {
     "test": "node ./demo.js"
   },
+  "homepage": "https://github.com/liavbarsheshet/styled-terminal",
   "keywords": [
     "styled",
     "terminal",
