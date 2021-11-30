@@ -1,0 +1,34 @@
+{
+  "name": "styled-terminal",
+  "version": "1.0.0",
+  "description": "Create, manage styles for output terminal strings.",
+  "main": "index.js",
+  "scripts": {
+    "test": "node ./demo.js"
+  },
+  "keywords": [
+    "styled",
+    "terminal",
+    "colors",
+    "color",
+    "css",
+    "string",
+    "styled",
+    "string",
+    "log",
+    "console",
+    "styles"
+  ],
+  "files": [
+    "LICENSE",
+    "Readme.md",
+    "index.js",
+    "demo.js",
+    "lib/"
+  ],
+  "engines": {
+    "node": ">= 0.10.0"
+  },
+  "author": "Liav Barsheshet <liavbarsheshet@gmail.com>",
+  "license": "MIT"
+}
