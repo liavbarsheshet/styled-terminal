@@ -15,7 +15,7 @@ $ npm install styled-terminal
 
 ## Demo
 ```js
-const styles = require('./index');
+const styles = require('styled-terminal');
 
 // Create global style templates - can be set on another module
 
@@ -68,3 +68,4 @@ console.log(`Installation: ${`npm install styled-terminal`.appendStyle({
 [npm-image]: https://img.shields.io/npm/v/styled-terminal.svg
 [npm-url]: https://www.npmjs.com/package/styled-terminal
 [downloads-image]: https://img.shields.io/npm/dm/styled-terminal.svg
+[downloads-url]: https://npmcharts.com/compare/styled-terminal?minimal=true
