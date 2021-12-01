@@ -44,7 +44,7 @@ styles.set("author",{
 
 // Author Text Highlighted
 styles.set("authorHighlight",{
-    foreground:'hsl(0,100,100)', // Equivalent to 'white'
+    foreground:'hsl(0,100%,100%)', // Equivalent to 'white'
     decoration:'italic underline', // can include more than one decoration: 'italic unerline crossed'
     weight:'light'
 });
