@@ -1,6 +1,6 @@
 {
   "name": "styled-terminal",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Create, manage styles for output terminal strings.",
   "main": "index.js",
   "scripts": {

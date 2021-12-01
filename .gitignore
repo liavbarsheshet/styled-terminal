@@ -18,5 +18,3 @@ node_modules
 package-lock.json
 *.log
 *.gz
-
-assets/
