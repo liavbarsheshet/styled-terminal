@@ -1,4 +1,7 @@
-# styled-terminal
+[![styled-terminal logo](https://github.com/liavbarsheshet/styled-terminal/blob/master/assets/styled-terminal.png?raw=true)]
+
+---
+
 Create, manage styles for output terminal strings.
 
   [![NPM Version][npm-image]][npm-url]
@@ -64,6 +67,10 @@ console.log(`Installation: ${`npm install styled-terminal`.appendStyle({
     weight:'light'
 })}`);
 ```
+
+## Output
+[![Demo Output](https://github.com/liavbarsheshet/styled-terminal/blob/master/assets/styled-terminal-demo.png?raw=true)]
+
 
 [npm-image]: https://img.shields.io/npm/v/styled-terminal.svg
 [npm-url]: https://www.npmjs.com/package/styled-terminal
