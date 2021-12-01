@@ -1,4 +1,4 @@
-[![styled-terminal logo](https://github.com/liavbarsheshet/styled-terminal/blob/master/assets/styled-terminal.png?raw=true)]
+![styled-terminal logo](https://github.com/liavbarsheshet/styled-terminal/blob/master/assets/styled-terminal.png?raw=true)
 
 ---
 
@@ -69,7 +69,7 @@ console.log(`Installation: ${`npm install styled-terminal`.appendStyle({
 ```
 
 ## Output
-[![Demo Output](https://github.com/liavbarsheshet/styled-terminal/blob/master/assets/styled-terminal-demo.png?raw=true)]
+![Demo Output](https://github.com/liavbarsheshet/styled-terminal/blob/master/assets/styled-terminal-demo.png?raw=true)
 
 
 [npm-image]: https://img.shields.io/npm/v/styled-terminal.svg
