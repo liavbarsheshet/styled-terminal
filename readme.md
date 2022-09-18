@@ -387,7 +387,7 @@ $ npm demo
 
 [MIT](LICENSE)
 
-[styled-terminal-logo]: https://github.com/liavbarsheshet/styled-terminal/blob/master/assets/styled-terminal.png?raw=true
+[styled-terminal-logo]: https://lh3.googleusercontent.com/qsZp90wTSYqcnQgSTmQxV6lTs97zE_an19dZGS7K5sx7gbslJMzbCSut03gRKVSHzKhW1Pz7r2TLr-_mU0c1Hb0mguU6u8KUZoGoUv8eVUl6tjhPWlT01TKFVUb6Q8Nj2SlaD6lrWA=w466-h142
 [npm-image]: https://img.shields.io/npm/v/styled-terminal.svg
 [npm-url]: https://www.npmjs.com/package/styled-terminal
 [downloads-image]: https://img.shields.io/npm/dm/styled-terminal.svg
