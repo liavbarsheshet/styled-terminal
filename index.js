@@ -9,9 +9,11 @@
  * MIT Licensed
  */
 
-import { createColor, saveColor as _saveColor } from "./lib/colors.js";
-import * as presets from "./lib/presets.js";
-import * as fs from "fs";
+const { createColor, saveColor: _saveColor } = require("./lib/colors");
+
+const presets = require("./lib/presets");
+
+const fs = require("fs");
 
 const properties = {
   weight: {
@@ -210,11 +212,11 @@ function renderApply(str, data) {
 // String extension
 
 String.prototype.style = function (styleObject) {
-  return apply(this, styleObject);
+  return apply(this.toString(), styleObject);
 };
 
 String.prototype.preset = function (presetName, ...args) {
-  return preset(this, presetName, ...args);
+  return preset(this.toString(), presetName, ...args);
 };
 
 String.prototype.clearStyle = function () {
@@ -233,8 +235,8 @@ function clear(str) {
 }
 
 function apply(str, styleObject) {
-  if (!str || typeof str != "string") return str;
-  if (typeof styleObject == "string") styleObject = styles[styleObject];
+  if (!str || typeof str !== "string") return str;
+  if (typeof styleObject === "string") styleObject = styles[styleObject];
   if (!styleObject || typeof styleObject != "object") return str;
   return `${retrieveStyle(styleObject)}${str}${ENDING}`;
 }
@@ -332,7 +334,7 @@ function renderAsync(file, data = {}) {
   });
 }
 
-export {
+module.exports = {
   clear,
   apply,
   preset,

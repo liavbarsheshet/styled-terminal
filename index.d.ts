@@ -59,9 +59,9 @@ type Styles = { [key: string]: StyleObject };
 
 type Colors = { [key: string]: Color };
 
-type Data = { [key: string]: String };
+type Data = { [key: string]: string };
 
-type CallBack = (err: Error, res: String | undefined) => {};
+type CallBack = (err: Error, res: string | undefined) => {};
 
 type Preset = "rainbow" | "money";
 
@@ -71,8 +71,9 @@ interface String {
    * Worst-Case Time complexity O(1) | O(n) - if multiple properties are not efficient.
    *
    * @param {styleObject} styleObject Style object or a name of saved style template.
+   * @returns {string} Current string without any style.
    */
-  style(styleObject: StyleObject): String;
+  style(styleObject: StyleObject): string;
 
   /**
    * Apply preset on this string.
@@ -82,37 +83,37 @@ interface String {
    *
    * @param {Preset} presetName Preset name.
    * @param {any[]} args Preset arguments.
-   * @returns {String} Styled string.
+   * @returns {string} Styled string.
    */
-  preset(presetName: Preset, ...args: any[]): String;
+  preset(presetName: Preset, ...args: any[]): string;
 
   /**
    * Clears this string from any styles.
    * Worst-Case Time complexity O(|this|)
    *
-   * @returns {String} Current string without any style.
+   * @returns {string} Current string without any style.
    */
-  clearStyle(): String;
+  clearStyle(): string;
 }
 
 /**
  * Clears a string from any styles.
  * Worst-Case Time complexity O(|str|)
  *
- * @param {String} str String.
- * @returns {String} String without any style.
+ * @param {string} str string.
+ * @returns {string} string without any style.
  */
-export function clear(str: String): String;
+export function clear(str: string): string;
 
 /**
  * Apply style on a given string.
  * Worst-Case Time complexity O(1) | O(n) - if multiple properties are not efficient.
  *
- * @param {String} str String to be styled.
+ * @param {string} str string to be styled.
  * @param {StyleObject} styleObject Style object.
- * @returns {String} Styled string.
+ * @returns {string} Styled string.
  */
-export function apply(str: String, styleObject: StyleObject): String;
+export function apply(str: string, styleObject: StyleObject): string;
 
 /**
  * Apply preset on a given string.
@@ -120,30 +121,30 @@ export function apply(str: String, styleObject: StyleObject): String;
  *
  * @see {@link ./lib/presets.js}
  *
- * @param {String} str String to be styled.
+ * @param {string} str string to be styled.
  * @param {Preset} presetName Preset name.
  * @param {any[]} args Preset arguments.
- * @returns {String} Styled string.
+ * @returns {string} Styled string.
  */
-export function preset(str: String, presetName: Preset, ...args: any[]): String;
+export function preset(str: string, presetName: Preset, ...args: any[]): string;
 
 /**
  * Saves style as template within a given name.
  * Worst-Case Time complexity O(1).
  *
- * @param {String} name Style name.
+ * @param {string} name Style name.
  * @param {StyleObject} styleObject Style object.
  */
-export function saveStyle(name: String, styleObject: StyleObject): void;
+export function saveStyle(name: string, styleObject: StyleObject): void;
 
 /**
  * Saves color as template within a given name.
  * Worst-Case Time complexity O(1).
  *
- * @param {String} name Style name.
+ * @param {string} name Style name.
  * @param {Color} color Color in formats: (BaseColor|HEXColor|RGBColor|HSLColor)
  */
-export function saveColor(name: String, color: Color): void;
+export function saveColor(name: string, color: Color): void;
 
 /**
  * Saves multiples styles from js object.
@@ -165,38 +166,38 @@ export function saveColors(colors: Colors): void;
  * Saves template auto detection (COLOR|STYLE)
  * Worst-Case Time complexity O(1).
  *
- * @param {String} name Style name.
+ * @param {string} name Style name.
  * @param {Styles & Colors} template Template
  */
-export function save(name: String, template: Styles & Colors): void;
+export function save(name: string, template: Styles & Colors): void;
 
 /**
  * Renders style of a txt file [Callback].
- * @param {String} file File path.
+ * @param {string} file File path.
  * @param {CallBack} [cb] Callback function.
  */
-export function render(file: String, cb: CallBack): void;
+export function render(file: string, cb: CallBack): void;
 
 /**
  * Renders style of a txt file [Callback].
- * @param {String} file File path.
+ * @param {string} file File path.
  * @param {Data} data Data parameters.
  * @param {CallBack} [cb] Callback function.
  */
-export function render(file: String, data: Data, cb: CallBack): void;
+export function render(file: string, data: Data, cb: CallBack): void;
 
 /**
  * Renders style of a txt file [Sync].
- * @param {String} file File path.
+ * @param {string} file File path.
  * @param {Data} [data] Data parameters.
- * @returns {String} Encoded string.
+ * @returns {string} Encoded string.
  */
-export function renderSync(file: String, data?: Data): String;
+export function renderSync(file: string, data?: Data): string;
 
 /**
  * Renders style of a txt file [Promise].
- * @param {String} file File path.
+ * @param {string} file File path.
  * @param {Data} [data] Data parameters.
  * @returns {Promise} A new promise.
  */
-export function renderAsync(file: String, data?: Data): Promise<string>;
+export function renderAsync(file: string, data?: Data): Promise<string>;

@@ -1,5 +1,5 @@
-import * as style from "./index.js";
-import * as fs from "fs";
+const style = require("./index");
+const fs = require("fs");
 
 const settings = JSON.parse(
   fs.readFileSync("./package.json", { encoding: "utf8" })
