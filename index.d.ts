@@ -55,11 +55,11 @@ type StyleObject = {
   colorMode?: "auto" | "invert";
 };
 
-type Styles = { [key: String]: StyleObject };
+type Styles = { [key: string]: StyleObject };
 
-type Colors = { [key: String]: Color };
+type Colors = { [key: string]: Color };
 
-type Data = { [key: String]: String };
+type Data = { [key: string]: String };
 
 type CallBack = (err: Error, res: String | undefined) => {};
 
@@ -199,4 +199,4 @@ export function renderSync(file: String, data?: Data): String;
  * @param {Data} [data] Data parameters.
  * @returns {Promise} A new promise.
  */
-export function renderAsync(file: String, data?: Data): Promise;
+export function renderAsync(file: String, data?: Data): Promise<string>;
