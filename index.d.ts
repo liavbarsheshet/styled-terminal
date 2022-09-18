@@ -65,35 +65,37 @@ type CallBack = (err: Error, res: string | undefined) => {};
 
 type Preset = "rainbow" | "money";
 
-interface String {
-  /**
-   * Styles this string with given style object.
-   * Worst-Case Time complexity O(1) | O(n) - if multiple properties are not efficient.
-   *
-   * @param {styleObject} styleObject Style object or a name of saved style template.
-   * @returns {string} Current string without any style.
-   */
-  style(styleObject: StyleObject): string;
+declare global {
+  interface String {
+    /**
+     * Styles this string with given style object.
+     * Worst-Case Time complexity O(1) | O(n) - if multiple properties are not efficient.
+     *
+     * @param {styleObject} styleObject Style object or a name of saved style template.
+     * @returns {string} Current string without any style.
+     */
+    style(styleObject: StyleObject): string;
 
-  /**
-   * Apply preset on this string.
-   * Worst-Case Time complexity: O(preset).
-   *
-   * @see {@link ./lib/presets.js}
-   *
-   * @param {Preset} presetName Preset name.
-   * @param {any[]} args Preset arguments.
-   * @returns {string} Styled string.
-   */
-  preset(presetName: Preset, ...args: any[]): string;
+    /**
+     * Apply preset on this string.
+     * Worst-Case Time complexity: O(preset).
+     *
+     * @see {@link ./lib/presets.js}
+     *
+     * @param {Preset} presetName Preset name.
+     * @param {any[]} args Preset arguments.
+     * @returns {string} Styled string.
+     */
+    preset(presetName: Preset, ...args: any[]): string;
 
-  /**
-   * Clears this string from any styles.
-   * Worst-Case Time complexity O(|this|)
-   *
-   * @returns {string} Current string without any style.
-   */
-  clearStyle(): string;
+    /**
+     * Clears this string from any styles.
+     * Worst-Case Time complexity O(|this|)
+     *
+     * @returns {string} Current string without any style.
+     */
+    clearStyle(): string;
+  }
 }
 
 /**
