@@ -2,5 +2,4 @@
 node_modules
 assets
 package-lock.json
-*.log
 *.gz
