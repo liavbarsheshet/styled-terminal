@@ -3,9 +3,17 @@
   "main": "index.js",
   "type": "module",
   "description": "Create, manage styles for console.",
-  "version": "1.1.5",
+  "version": "1.1.6",
   "license": "MIT",
   "author": "Liav Barsheshet, LBDevelopments <liavbarsheshet@gmail.com, liavb@campus.technion.ac.il>",
+  "homepage": "https://github.com/liavbarsheshet/styled-terminal",
+  "scripts": {
+    "demo": "node demo.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/liavbarsheshet/styled-terminal"
+  },
   "directories": {
     "lib": "lib"
   },
@@ -24,6 +32,5 @@
     "log",
     "console",
     "styles"
-  ],
-  "files": []
+  ]
 }

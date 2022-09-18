@@ -375,8 +375,8 @@ style
 To run the demo, first install the dependencies, then run `npm demo`:
 
 ```bash
-$ npm install
-$ npm demo
+$ npm install styled-terminal
+$ npm run demo
 ```
 
 ## Author
