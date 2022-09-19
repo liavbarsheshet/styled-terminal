@@ -346,7 +346,7 @@ Renders style of a txt file [Callback].
 ```js
 const style = require('styled-terminal'); // ES5
 
-const result = style.render("src");
+const result = style.renderSync("src");
 
 console.log(result);
 ```
@@ -359,7 +359,7 @@ Renders style of a txt file [Promise].
 const style = require('styled-terminal'); // ES5
 
 style
-  .render("src")
+  .renderAsync("src")
   .then((result) => { console.log(result);})
   .catch((err) => {...});
 ```
