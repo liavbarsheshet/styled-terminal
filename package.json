@@ -2,7 +2,7 @@
   "name": "styled-terminal",
   "main": "index.js",
   "description": "Create, manage styles for console.",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "license": "MIT",
   "author": "Liav Barsheshet, LBDevelopments <liavbarsheshet@gmail.com, liavb@campus.technion.ac.il>",
   "homepage": "https://github.com/liavbarsheshet/styled-terminal",
