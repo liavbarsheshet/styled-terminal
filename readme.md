@@ -21,7 +21,7 @@ $ npm install styled-terminal
 via ES5:
 
 ```js
-const style = require('styled-terminal');
+const style = require("styled-terminal");
 ```
 
 ## Usage
@@ -185,7 +185,7 @@ Apply preset (pre-made design) on a given string.
 _Returns styled string._
 
 ```ts
-const style = require('styled-terminal'); // ES5
+const style = require("styled-terminal"); // ES5
 
 type Preset = "rainbow" | "money";
 
@@ -207,13 +207,17 @@ Clears a string from any styles.
 _Returns unstyled string._
 
 ```js
-const style = require('styled-terminal'); // ES5
+const style = require("styled-terminal"); // ES5
 
 let styledString = "...";
 
 let result;
 
-result = styledString.clear();
+result = style.clear(styledString);
+
+// OR
+
+result = styledString.clearStyle();
 
 // OR
 
@@ -242,7 +246,7 @@ console.log("Hello World!".style("template")); // prints the styled string.
 Saves color as template within a given name.
 
 ```js
-const style = require('styled-terminal'); // ES5
+const style = require("styled-terminal"); // ES5
 
 style.saveColor("warm-green", "#87AA31");
 style.saveColor("black-bg", "hsl(0,100%,0%)");
@@ -331,7 +335,7 @@ Style from preset.
 Renders style of a txt file [Callback].
 
 ```js
-const style = require('styled-terminal'); // ES5
+const style = require("styled-terminal"); // ES5
 
 style.render("src", (err, res) => {
   if (err) throw err;
@@ -344,7 +348,7 @@ style.render("src", (err, res) => {
 Renders style of a txt file [Callback].
 
 ```js
-const style = require('styled-terminal'); // ES5
+const style = require("styled-terminal"); // ES5
 
 const result = style.renderSync("src");
 
