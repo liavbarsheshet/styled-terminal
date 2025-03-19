@@ -7,7 +7,7 @@
  * @copyright Liav Barsheshet <LBDevelopments> © 2025
  */
 
-import { rand, TRange } from "./util";
+import { rand } from "./util";
 
 /**
  * Invalid Color Error
