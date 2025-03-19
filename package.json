@@ -1,35 +1,31 @@
 {
   "name": "styled-terminal",
-  "main": "index.js",
-  "description": "Create, manage styles for console.",
-  "version": "1.2.2",
+  "version": "2.0.0",
+  "description": "Create and manage styles for the console with ease.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "license": "MIT",
-  "author": "Liav Barsheshet, LBDevelopments <liavbarsheshet@gmail.com, liavb@campus.technion.ac.il>",
-  "homepage": "https://github.com/liavbarsheshet/styled-terminal",
-  "scripts": {
-    "demo": "node demo.js"
+  "author": {
+    "name": "Liav Barsheshet",
+    "email": "liavbarsheshet@gmail.com",
+    "url": "https://github.com/liavbarsheshet"
   },
+  "homepage": "https://github.com/liavbarsheshet/styled-terminal",
   "repository": {
     "type": "git",
-    "url": "https://github.com/liavbarsheshet/styled-terminal"
+    "url": "https://github.com/liavbarsheshet/styled-terminal.git"
   },
-  "directories": {
-    "lib": "lib"
+  "scripts": {
+    "build": "tsc",
+    "prepublishOnly": "npm run build",
+    "test": "jest"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "typescript": "^5.8.2",
+    "jest": "^29.7.0"
   },
   "engines": {
-    "node": ">= 0.10.0"
-  },
-  "keywords": [
-    "styled",
-    "terminal",
-    "colors",
-    "color",
-    "css",
-    "string",
-    "styled",
-    "string",
-    "log",
-    "console",
-    "styles"
-  ]
+    "node": ">=16.0.0"
+  }
 }
