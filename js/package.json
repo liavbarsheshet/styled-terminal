@@ -10,14 +10,14 @@
     "email": "liavbarsheshet@gmail.com",
     "url": "https://github.com/liavbarsheshet"
   },
-  "homepage": "https://github.com/liavbarsheshet/styled-terminal",
+  "homepage": "https://github.com/liavbarsheshet/styled-terminal/tree/main/js",
   "repository": {
-    "type": "git",
-    "url": "https://github.com/liavbarsheshet/styled-terminal.git"
+    "url": "https://github.com/liavbarsheshet/styled-terminal.git",
+    "directory": "js",
+    "type": "git"
   },
   "scripts": {
     "build": "tsc",
-    "prepublishOnly": "npm run build",
     "test": "jest"
   },
   "dependencies": {},
