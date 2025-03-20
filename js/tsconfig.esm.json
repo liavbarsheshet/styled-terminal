@@ -1,0 +1,9 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "removeComments": true,
+    "outDir": "dist/esm",
+    "module": "ESNext"
+  },
+  "include": ["src/**/*.ts"]
+}

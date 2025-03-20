@@ -267,15 +267,46 @@ export class Color {
     if (lightness > 100 || lightness < 0)
       throw new InvalidParameter("lightness", "a number between 0-100");
 
-    saturation /= 100;
-    lightness /= 100;
+    const s = saturation / 100;
+    const l = lightness / 100;
 
-    const k = (n: number) => (n + hue / 30) % 12;
-    const a = saturation * Math.min(lightness, 1 - lightness);
+    const c = (1 - Math.abs(2 * l - 1)) * s;
+    const x = c * (1 - Math.abs(((hue / 60) % 2) - 1));
+    const m = l - c / 2;
 
-    const f = (n: number) => lightness - a * Math.max(-1, Math.min(k(n) - 3, 9 - k(n), 1));
+    let r, g, b;
 
-    return Color.rgb(Math.round(f(0) * 255), Math.round(f(8) * 255), Math.round(f(4) * 255));
+    if (hue < 60) {
+      r = c;
+      g = x;
+      b = 0;
+    } else if (hue < 120) {
+      r = x;
+      g = c;
+      b = 0;
+    } else if (hue < 180) {
+      r = 0;
+      g = c;
+      b = x;
+    } else if (hue < 240) {
+      r = 0;
+      g = x;
+      b = c;
+    } else if (hue < 300) {
+      r = x;
+      g = 0;
+      b = c;
+    } else {
+      r = c;
+      g = 0;
+      b = x;
+    }
+
+    const red = Math.round((r + m) * 255);
+    const green = Math.round((g + m) * 255);
+    const blue = Math.round((b + m) * 255);
+
+    return Color.rgb(red, green, blue);
   }
 
   /**

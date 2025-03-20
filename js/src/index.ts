@@ -6,9 +6,13 @@
  * @author Liav Barsheshet <liavbarsheshet@gmail.com>
  * @copyright Liav Barsheshet <LBDevelopments> © 2025
  */
+import { Color } from "./color";
 import { Style } from "./style";
 
-const style: Style = new Style();
+const style = new Style();
 
-// API Export
+// Exposing API
+export { Color, Style, style };
+
+// API Default Export
 export default style;

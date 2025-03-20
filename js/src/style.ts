@@ -42,7 +42,7 @@ export class Style {
   #chain: TAnsi[];
 
   private applyModifier(style: Style, code: TAnsi): Style {
-    const new_style = new Style(style);
+    let new_style = new Style(style);
     new_style.#chain.push(code);
     return new_style;
   }
@@ -208,6 +208,8 @@ export class Style {
    * @returns {string} A styled string.
    */
   apply(str: string): string {
-    return `${this.#chain.join("")}${str}${END_SEQUENCE}`;
+    if (!str.length) return "";
+    
+    return `${this.#chain.join("")}${str.replace(/\x1b\[0m$/, "")}${END_SEQUENCE}`;
   }
 }
