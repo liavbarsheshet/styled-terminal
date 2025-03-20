@@ -6,195 +6,215 @@
  * @author Liav Barsheshet <liavbarsheshet@gmail.com>
  * @copyright Liav Barsheshet <LBDevelopments> © 2025
  */
-
+import { InvalidParameter } from "./errors";
 import { rand } from "./util";
 
-/**
- * Invalid Color Error
- */
-class InvalidColor extends Error {
-  constructor(property: string, legal: string) {
-    super(`The color property '${property}' is invalid. It should be ${legal}.`);
-  }
-}
-
 /** Represents a color ansi code. */
-export type TColor = `5;${number}` | `2;${number};${number};${number}`;
+export type TColorCode = `5;${number}` | `2;${number};${number};${number}`;
 
 /**
  * Represents a Color.
  */
 export class Color {
+  /** A partial ansi color escape sequence. */
+  #code: TColorCode;
+
+  /**
+   * Construct a new Color instance.
+   * @constructor
+   * @param code A partial ANSI code representing a color.
+   */
+  constructor(code: TColorCode) {
+    const regex =
+      /^(?:(?:5;(?:(?:\d)|(?:[1-9]\d)|(?:1\d\d)|(?:2[0-4]\d)|(?:25[0-5])))|(?:2;(?:(?:\d)|(?:[1-9]\d)|(?:1\d\d)|(?:2[0-4]\d)|(?:25[0-5]));(?:(?:\d)|(?:[1-9]\d)|(?:1\d\d)|(?:2[0-4]\d)|(?:25[0-5]));(?:(?:\d)|(?:[1-9]\d)|(?:1\d\d)|(?:2[0-4]\d)|(?:25[0-5]))))$/gm;
+
+    if (!regex.test(code))
+      throw new InvalidParameter(
+        "code",
+        "formatted like this '5;[0-255]' or 2;[red];[green];[blue]"
+      );
+
+    this.#code = code;
+  }
+
+  /**
+   * Gets the partial ansi color escape sequence.
+   * @returns {TColorCode} A partial ANSI code representing a color.
+   */
+  get code(): TColorCode {
+    return this.#code;
+  }
+
   // [Default Colors]
 
   /**
    * Gets the default black color.
    *
-   * @returns {TColor} A partial ANSI code representing the default black color.
+   * @returns {Color} A new Color instance representing the default black color.
    */
-  static get black(): TColor {
+  static get black(): Color {
     return Color.table256(0);
   }
 
   /**
    * Gets the default bright black color.
    *
-   * @returns {TColor} A partial ANSI code representing the default bright black color.
+   * @returns {Color} A new Color instance representing the default bright black color.
    */
-  static get brightBlack(): TColor {
+  static get brightBlack(): Color {
     return Color.table256(8);
   }
 
   /**
    * Gets the default red color.
    *
-   * @returns {TColor} A partial ANSI code representing the default red color.
+   * @returns {Color} A new Color instance representing the default red color.
    */
-  static get red(): TColor {
+  static get red(): Color {
     return Color.table256(1);
   }
 
   /**
    * Gets the default bright red color.
    *
-   * @returns {TColor} A partial ANSI code representing the default bright red color.
+   * @returns {Color} A new Color instance representing the default bright red color.
    */
-  static get brightRed(): TColor {
+  static get brightRed(): Color {
     return Color.table256(9);
   }
 
   /**
    * Gets the default green color.
    *
-   * @returns {TColor} A partial ANSI code representing the default green color.
+   * @returns {Color} A new Color instance representing the default green color.
    */
-  static get green(): TColor {
+  static get green(): Color {
     return Color.table256(2);
   }
 
   /**
    * Gets the default bright green color.
    *
-   * @returns {TColor} A partial ANSI code representing the default bright green color.
+   * @returns {Color} A new Color instance representing the default bright green color.
    */
-  static get brightGreen(): TColor {
+  static get brightGreen(): Color {
     return Color.table256(10);
   }
 
   /**
    * Gets the default yellow color.
    *
-   * @returns {TColor} A partial ANSI code representing the default yellow color.
+   * @returns {Color} A new Color instance representing the default yellow color.
    */
-  static get yellow(): TColor {
+  static get yellow(): Color {
     return Color.table256(3);
   }
 
   /**
    * Gets the default bright yellow color.
    *
-   * @returns {TColor} A partial ANSI code representing the default bright yellow color.
+   * @returns {Color} A new Color instance representing the default bright yellow color.
    */
-  static get brightYellow(): TColor {
+  static get brightYellow(): Color {
     return Color.table256(11);
   }
 
   /**
    * Gets the default blue color.
    *
-   * @returns {TColor} A partial ANSI code representing the default blue color.
+   * @returns {Color} A new Color instance representing the default blue color.
    */
-  static get blue(): TColor {
+  static get blue(): Color {
     return Color.table256(4);
   }
 
   /**
    * Gets the default bright blue color.
    *
-   * @returns {TColor} A partial ANSI code representing the default bright blue color.
+   * @returns {Color} A new Color instance representing the default bright blue color.
    */
-  static get brightBlue(): TColor {
+  static get brightBlue(): Color {
     return Color.table256(12);
   }
 
   /**
    * Gets the default magenta color.
    *
-   * @returns {TColor} A partial ANSI code representing the default magenta color.
+   * @returns {Color} A new Color instance representing the default magenta color.
    */
-  static get magenta(): TColor {
+  static get magenta(): Color {
     return Color.table256(5);
   }
 
   /**
    * Gets the default bright magenta color.
    *
-   * @returns {TColor} A partial ANSI code representing the default bright magenta color.
+   * @returns {Color} A new Color instance representing the default bright magenta color.
    */
-  static get brightMagenta(): TColor {
+  static get brightMagenta(): Color {
     return Color.table256(13);
   }
 
   /**
    * Gets the default cyan color.
    *
-   * @returns {TColor} A partial ANSI code representing the default cyan color.
+   * @returns {Color} A new Color instance representing the default cyan color.
    */
-  static get cyan(): TColor {
+  static get cyan(): Color {
     return Color.table256(6);
   }
 
   /**
    * Gets the default bright cyan color.
    *
-   * @returns {TColor} A partial ANSI code representing the default bright cyan color.
+   * @returns {Color} A new Color instance representing the default bright cyan color.
    */
-  static get brightCyan(): TColor {
+  static get brightCyan(): Color {
     return Color.table256(14);
   }
 
   /**
    * Gets the default white color.
    *
-   * @returns {TColor} A partial ANSI code representing the default white color.
+   * @returns {Color} A new Color instance representing the default white color.
    */
-  static get white(): TColor {
+  static get white(): Color {
     return Color.table256(7);
   }
 
   /**
    * Gets the default bright white color.
    *
-   * @returns {TColor} A partial ANSI code representing the default bright white color.
+   * @returns {Color} A new Color instance representing the default bright white color.
    */
-  static get brightWhite(): TColor {
+  static get brightWhite(): Color {
     return Color.table256(15);
   }
 
   /**
    * Gets a random color.
    *
-   * @returns {TColor} A partial ANSI code representing the random color.
+   * @returns {Color} A new Color instance representing the random color.
    */
-  static get random(): TColor {
+  static get random(): Color {
     return Color.hsl(rand(0, 360), rand(0, 100), rand(0, 100));
   }
 
   /**
    * Gets a random bright color.
    *
-   * @returns {TColor} A partial ANSI code representing the random bright color.
+   * @returns {Color} A partial ANSI code representing the random bright color.
    */
-  static get randomBright(): TColor {
+  static get randomBright(): Color {
     return Color.hsl(rand(0, 360), 100, rand(50, 85));
   }
 
   /**
    * Gets a random dim color.
    *
-   * @returns {TColor} A partial ANSI code representing the random dim color.
+   * @returns {Color} A new Color instance representing the random dim color.
    */
-  static get randomDim(): TColor {
+  static get randomDim(): Color {
     return Color.hsl(rand(0, 360), 50, rand(15, 50));
   }
 
@@ -207,11 +227,11 @@ export class Color {
    *              8-15: brightBlack...brightWhite
    *              16-231:  6 × 6 × 6 cube (216 colors): 16 + 36 × r + 6 × g + b (0 ≤ r, g, b ≤ 5).
    *              235-255: grayscale from dark to light in 24 steps.
-   * @returns {TColor} A partial ansi code corresponding to the provided index color.
+   * @returns {Color} A new Color instance corresponding to the provided index color.
    */
-  static table256(index: number): TColor {
-    if (index > 255 || index < 0) throw new InvalidColor("index", "a number between 0-255");
-    return `5;${index}`;
+  static table256(index: number): Color {
+    if (index > 255 || index < 0) throw new InvalidParameter("index", "a number between 0-255");
+    return new Color(`5;${index}`);
   }
 
   // [True colors] Custom Colors, 24 bit.
@@ -222,14 +242,14 @@ export class Color {
    * @param red The red component of the color, typically a value between 0 and 255.
    * @param green The green component of the color, typically a value between 0 and 255.
    * @param blue The blue component of the color, typically a value between 0 and 255.
-   * @returns {TColor} A partial ansi code corresponding to the provided RGB values.
+   * @returns {Color} A new Color instance corresponding to the provided RGB values.
    */
-  static rgb(red: number, green: number, blue: number): TColor {
-    if (green > 255 || green < 0) throw new InvalidColor("green", "a number between 0-255");
-    if (blue > 255 || blue < 0) throw new InvalidColor("blue", "a number between 0-255");
-    if (red > 255 || red < 0) throw new InvalidColor("red", "a number between 0-255");
+  static rgb(red: number, green: number, blue: number): Color {
+    if (green > 255 || green < 0) throw new InvalidParameter("green", "a number between 0-255");
+    if (blue > 255 || blue < 0) throw new InvalidParameter("blue", "a number between 0-255");
+    if (red > 255 || red < 0) throw new InvalidParameter("red", "a number between 0-255");
 
-    return `2;${red};${green};${blue}`;
+    return new Color(`2;${red};${green};${blue}`);
   }
 
   /**
@@ -238,14 +258,14 @@ export class Color {
    * @param hue The hue of the color, typically a value between 0 and 360 degrees.
    * @param saturation The saturation of the color, typically a percentage value between 0 and 100.
    * @param lightness The lightness of the color, typically a percentage value between 0 and 100.
-   * @returns {TColor} A partial ansi code corresponding to the provided HSL values.
+   * @returns {Color} A new Color instance corresponding to the provided HSL values.
    */
-  static hsl(hue: number, saturation: number, lightness: number): TColor {
-    if (hue > 360 || hue < 0) throw new InvalidColor("hue", "a number between 0-360");
+  static hsl(hue: number, saturation: number, lightness: number): Color {
+    if (hue > 360 || hue < 0) throw new InvalidParameter("hue", "a number between 0-360");
     if (saturation > 100 || saturation < 0)
-      throw new InvalidColor("saturation", "a number between 0-100");
+      throw new InvalidParameter("saturation", "a number between 0-100");
     if (lightness > 100 || lightness < 0)
-      throw new InvalidColor("lightness", "a number between 0-100");
+      throw new InvalidParameter("lightness", "a number between 0-100");
 
     saturation /= 100;
     lightness /= 100;
@@ -262,11 +282,11 @@ export class Color {
    * Creates a `Color` instance from a hexadecimal color code.
    *
    * @param hexCode A string representing the color in hexadecimal format (e.g., `#FF5733` or `FF5733`).
-   * @returns {string} A `Color` object corresponding to the provided hex code.
+   * @returns {Color} A new Color instance corresponding to the provided hex code.
    */
-  static hex(hexCode: string): TColor {
+  static hex(hexCode: string): Color {
     if (!/^#?([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/.test(hexCode))
-      throw new InvalidColor("hexCode", "a valid hex color code.");
+      throw new InvalidParameter("hexCode", "a valid hex color code.");
 
     hexCode = hexCode.replace("#", "");
 
