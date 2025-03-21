@@ -8,6 +8,7 @@
  */
 
 import { Color, TColorCode } from "./color";
+import { InvalidParameter } from "./errors";
 
 /** Represents allowed ANSI escape sequences. */
 type TAnsi = string &
@@ -41,9 +42,9 @@ export class Style {
   /** Chain of styles. */
   #chain: TAnsi[];
 
-  private applyModifier(style: Style, code: TAnsi): Style {
+  private applyModifier(style: Style, code?: TAnsi): Style {
     let new_style = new Style(style);
-    new_style.#chain.push(code);
+    if (code) new_style.#chain.push(code);
     return new_style;
   }
 
@@ -53,12 +54,12 @@ export class Style {
   }
 
   /**
-   * Resets the current style.
+   * Resets all the current style modifiers.
    *
    * @returns {Style} A new `Style` instance for fluent method chaining.
    */
   get reset(): Style {
-    return this.applyModifier(this, `\x1b[0m`);
+    return new Style();
   }
 
   /**
@@ -203,13 +204,33 @@ export class Style {
   // [Style Application]
 
   /**
-   * Applies a style to a string.
-   * @param str A string.
-   * @returns {string} A styled string.
+   * Applies a style to a string by concatenating it with additional strings.
+   *
+   * @param str The base string to apply the style to.
+   * @param args Additional strings to concatenate.
+   * @returns {string} The styled and concatenated string.
    */
-  apply(str: string): string {
-    if (!str.length) return "";
-    
-    return `${this.#chain.join("")}${str.replace(/\x1b\[0m$/, "")}${END_SEQUENCE}`;
+  apply(str: string, ...args: string[]): string {
+    // Accepting only strings.
+    if (typeof str !== "string" || args.filter((v) => typeof v !== "string").length)
+      throw new InvalidParameter("string, [string...]", "a valid string");
+
+    // String concat.
+    str = `${str}${args.length ? " " : ""}${args.join(" ")}`;
+
+    if (!this.#chain.length || !str.length) return str;
+
+    // Nested styles logic.
+    const segments = str.split(END_SEQUENCE);
+
+    return segments
+      .map((segment, index) => {
+        if (index < segments.length - 1) return `${this.#chain.join("")}${segment}`;
+
+        if (!segment.length) return segment;
+
+        return `${this.#chain.join("")}${segment}${END_SEQUENCE}`;
+      })
+      .join(END_SEQUENCE);
   }
 }

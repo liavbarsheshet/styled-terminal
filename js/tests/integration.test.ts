@@ -45,7 +45,7 @@ describe("Integration Tests: Styled Terminal Output", () => {
     const resetStyle = style.bold.fg(Color.green).reset;
     const styledText = resetStyle.apply("Reset Text");
     console.log(styledText);
-    expect(consoleLogSpy).toHaveBeenCalledWith("\x1b[1m\x1b[38;5;2m\x1b[0mReset Text\x1b[0m");
+    expect(consoleLogSpy).toHaveBeenCalledWith("Reset Text");
   });
 
   it("should handle hidden and reveal styles correctly", () => {
