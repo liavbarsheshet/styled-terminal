@@ -75,7 +75,7 @@ describe("Integration Tests: Styled Terminal Output", () => {
     console.log(style.fg(Color.red).resetFg.apply("Reset Foreground"));
     console.log(style.bg(Color.blue).resetBg.apply("Reset Background"));
 
-    expect(consoleLogSpy).toHaveBeenCalledWith("\x1b[38;5;1m\x1b[39mReset Foreground\x1b[0m");
-    expect(consoleLogSpy).toHaveBeenCalledWith("\x1b[48;5;4m\x1b[49mReset Background\x1b[0m");
+    expect(consoleLogSpy).toHaveBeenCalledWith("\x1b[39mReset Foreground\x1b[0m");
+    expect(consoleLogSpy).toHaveBeenCalledWith("\x1b[49mReset Background\x1b[0m");
   });
 });

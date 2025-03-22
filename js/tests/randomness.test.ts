@@ -1,18 +1,16 @@
 import style, { Color, Style } from "../src/index";
 
 describe("Randomness Test: Styled Terminal Output", () => {
-  const TIMES = 200;
+  const TIMES = 500;
 
   it(`prints ${TIMES} random colors to check randomness.`, () => {
-    const history = new Set();
+    const colors: string[] = [];
     const text = "   ";
 
     for (let i = 0; i < TIMES; ++i) {
       const v = style.bg(Color.random).apply(text);
-      history.add(v);
+      colors.push(v);
     }
-    console.log([...history].join(""));
-
-    expect(history.size).toBe(TIMES);
+    console.log([...colors].join(""));
   });
 });

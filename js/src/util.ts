@@ -8,7 +8,7 @@
 import { InvalidParameter } from "./errors";
 
 // Internal seed for the XORShift32 algorithm.
-let seed = 14327;
+let seed = 53899;
 
 /**
  * Generates a 32-bit unsigned pseudo-random integer using the XORShift32 algorithm.
