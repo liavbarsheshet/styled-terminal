@@ -33,26 +33,28 @@ enum EModifiers {
 }
 
 /** Represents allowed ANSI escape sequences. */
-type TAnsi = string &
-  `\x1b[${
-    | 0
-    | 1
-    | 2
-    | 3
-    | 4
-    | 7
-    | 8
-    | 9
-    | 22
-    | 23
-    | 24
-    | 27
-    | 28
-    | 29
-    | 39
-    | 49
-    | `38;${TColorCode}`
-    | `48;${TColorCode}`}m`;
+type TAnsi =
+  | (string &
+      `\x1b[${
+        | 0
+        | 1
+        | 2
+        | 3
+        | 4
+        | 7
+        | 8
+        | 9
+        | 22
+        | 23
+        | 24
+        | 27
+        | 28
+        | 29
+        | 39
+        | 49
+        | `38;${TColorCode}`
+        | `48;${TColorCode}`}m`)
+  | "";
 
 /** Marks the end of a specific style. */
 const END_SEQUENCE: TAnsi = `\x1b[0m`;
@@ -62,9 +64,9 @@ const END_SEQUENCE: TAnsi = `\x1b[0m`;
  */
 export class Style {
   /** Chain of styles. */
-  #chain: (TAnsi | undefined)[];
+  #chain: TAnsi[];
 
-  private applyModifier(style: Style, modifier: EModifiers, code?: TAnsi): Style {
+  private applyModifier(style: Style, modifier: EModifiers, code: TAnsi = ""): Style {
     let new_style = new Style(style);
     new_style.#chain[modifier] = code;
     return new_style;
@@ -322,21 +324,15 @@ export class Style {
     str = `${str}${args.length ? " " : ""}${args.join(" ")}`;
 
     // Filters the chain from undefined values
-    const filteredChain: string[] = this.#chain.filter((val) => !!val);
+    const chain: string = this.#chain.join("");
 
-    if (!filteredChain.length || !str.length) return str;
+    if (!chain.length || !str.length) return str;
 
     // Nested styles logic.
     const segments = str.split(END_SEQUENCE);
 
-    return segments
-      .map((segment, index) => {
-        if (index < segments.length - 1) return `${filteredChain.join("")}${segment}`;
+    if (!segments[segments.length - 1].length) segments.pop();
 
-        if (!segment.length) return segment;
-
-        return `${filteredChain.join("")}${segment}${END_SEQUENCE}`;
-      })
-      .join(END_SEQUENCE);
+    return segments.map((segment) => `${chain}${segment}`).join(END_SEQUENCE) + END_SEQUENCE;
   }
 }

@@ -194,7 +194,7 @@ export class Color {
    * @returns {Color} A new Color instance representing the random color.
    */
   static get random(): Color {
-    return Color.hsl(rand(0, 360), rand(0, 100), rand(0, 100));
+    return Color.rgb(rand(0, 255), rand(0, 255), rand(0, 255));
   }
 
   /**

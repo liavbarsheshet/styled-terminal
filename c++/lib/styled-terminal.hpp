@@ -6,10 +6,12 @@
  *
  * @author Liav Barsheshet <LBDevelopments> © 2025
  */
-
 #include <exception>
 #include <cstdint>
+#include <random>
 #include <string>
+#include <vector>
+#include <array>
 #include <cmath>
 #include <regex>
 
@@ -17,6 +19,15 @@
 #define _STYLED_TERMINAL_HPP
 
 // [Exception Section]
+
+namespace styled::terminal
+{
+    class Color;
+    class Style;
+
+    /** A style instance */
+    extern Style style;
+}
 
 /**
  * Base error class for styled-terminal.
@@ -29,7 +40,7 @@ private:
 
 public:
     /**
-     * @brief Constructs an styled-terminal exception with the given message.
+     * @brief  Constructs an styled-terminal exception with the given message.
      *
      * @param msg The error message.
      */
@@ -49,7 +60,7 @@ class InvalidParameter : public STException
 {
 public:
     /**
-     * @brief Constructs an invalid param exception.
+     * @brief  Constructs an invalid param exception.
      *
      * @param param The invalid parameter name.
      * @param legal The expected valid format or value.
@@ -59,8 +70,22 @@ public:
 
 // [Util Section]
 
+/**
+ * @brief Generates a random seed.
+ *
+ * @return A uint32 random seed.
+ */
+uint32_t generateRandomSeed()
+{
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<uint32_t> dis(0, 0xFFFFFFFF);
+
+    return dis(gen);
+}
+
 // Internal seed for the XORShift32 algorithm.
-uint32_t random_seed = 53899;
+uint32_t random_seed = generateRandomSeed();
 
 /**
  * @brief Generates a 32-bit unsigned pseudo-random integer using the XORShift32 algorithm.
@@ -94,12 +119,40 @@ uint32_t rand(uint32_t min, uint32_t max)
     return randXorShift32() % (max - min + 1);
 }
 
+/**
+ * @brief Util function for split strings with a given delimiter.
+ *
+ * @param str String to be splitted.
+ * @param del The delimiter.
+ * @return A vector of splitted strings by a given delimiter.
+ */
+std::vector<std::string> split(std::string str, const std::string &del)
+{
+    std::vector<std::string> result;
+
+    auto pos = str.find(del);
+
+    while (pos != std::string::npos)
+    {
+        result.push_back(str.substr(0, pos));
+
+        str.erase(0, pos + del.length());
+
+        pos = str.find(del);
+    }
+
+    if (str.length())
+        result.push_back(str);
+
+    return result;
+}
+
 // [Color Section]
 
 /**
  * Represents a Color.
  */
-class Color
+class styled::terminal::Color
 {
 private:
     /** A partial ansi color escape sequence. */
@@ -107,7 +160,7 @@ private:
 
 public:
     /**
-     * @brief Construct a new Color instance.
+     * @brief  Construct a new Color instance.
      *
      * @param code A partial ANSI code representing a color.
      */
@@ -122,7 +175,7 @@ public:
     }
 
     /**
-     * @brief Choose an index from the 256-color lookup table.
+     * @brief  Choose an index from the 256-color lookup table.
      * @param index A number between 0-255 which represent a cell index
      *              0-7:  black..white,
      *              8-15: brightBlack...brightWhite
@@ -139,7 +192,7 @@ public:
     }
 
     /**
-     * @brief Creates a `Color` object from RGB (Red, Green, Blue) values.
+     * @brief  Creates a `Color` object from RGB (Red, Green, Blue) values.
      *
      * @param red The red component of the color, typically a value between 0 and 255.
      * @param green The green component of the color, typically a value between 0 and 255.
@@ -156,7 +209,7 @@ public:
     }
 
     /**
-     * @brief Creates a `Color` object from HSL (Hue, Saturation, Lightness) values.
+     * @brief  Creates a `Color` object from HSL (Hue, Saturation, Lightness) values.
      *
      * @param hue The hue of the color, typically a value between 0 and 360 degrees.
      * @param saturation The saturation of the color, typically a percentage value between 0 and 100.
@@ -225,7 +278,7 @@ public:
     }
 
     /**
-     * @brief Creates a `Color` instance from a hexadecimal color code.
+     * @brief  Creates a `Color` instance from a hexadecimal color code.
      *
      * @param hexCode A string representing the color in hexadecimal format (e.g., `#FF5733` or `FF5733`).
      * @returns A new Color instance corresponding to the provided hex code.
@@ -262,57 +315,57 @@ public:
     // [Default Colors]
 
     /**
-     * @brief @brief Gets the default black color.
+     * @brief  @brief Styles the default black color.
      *
      * @return A new Color instance representing the default black color.
      */
-    static Color Black()
+    static Color black()
     {
         return Color::table256(0);
     }
 
     /**
-     * @brief @brief Gets the default bright black color.
+     * @brief  @brief Styles the default bright black color.
      *
      * @return A new Color instance representing the default bright black color.
      */
-    static Color BrightBlack()
+    static Color brightBlack()
     {
         return Color::table256(8);
     }
 
     /**
-     * @brief @brief Gets the default red color.
+     * @brief  @brief Styles the default red color.
      *
      * @return A new Color instance representing the default red color.
      */
-    static Color Red()
+    static Color red()
     {
         return Color::table256(1);
     }
 
     /**
-     * @brief @brief Gets the default bright red color.
+     * @brief  @brief Styles the default bright red color.
      *
      * @return A new Color instance representing the default bright red color.
      */
-    static Color BrightRed()
+    static Color brightRed()
     {
         return Color::table256(9);
     }
 
     /**
-     * @brief @brief Gets the default green color.
+     * @brief  @brief Styles the default green color.
      *
      * @return A new Color instance representing the default green color.
      */
-    static Color Green()
+    static Color green()
     {
         return Color::table256(2);
     }
 
     /**
-     * @brief Gets the default bright green color.
+     * @brief  Styles the default bright green color.
      *
      * @return A new Color instance representing the default bright green color.
      */
@@ -322,7 +375,7 @@ public:
     }
 
     /**
-     * @brief Gets the default yellow color.
+     * @brief  Styles the default yellow color.
      *
      * @return A new Color instance representing the default yellow color.
      */
@@ -332,7 +385,7 @@ public:
     }
 
     /**
-     * @brief Gets the default bright yellow color.
+     * @brief  Styles the default bright yellow color.
      *
      * @return A new Color instance representing the default bright yellow color.
      */
@@ -342,7 +395,7 @@ public:
     }
 
     /**
-     * @brief Gets the default blue color.
+     * @brief  Styles the default blue color.
      *
      * @return A new Color instance representing the default blue color.
      */
@@ -352,7 +405,7 @@ public:
     }
 
     /**
-     * @brief Gets the default bright blue color.
+     * @brief  Styles the default bright blue color.
      *
      * @return A new Color instance representing the default bright blue color.
      */
@@ -362,7 +415,7 @@ public:
     }
 
     /**
-     * @brief Gets the default magenta color.
+     * @brief  Styles the default magenta color.
      *
      * @return A new Color instance representing the default magenta color.
      */
@@ -372,7 +425,7 @@ public:
     }
 
     /**
-     * @brief Gets the default bright magenta color.
+     * @brief  Styles the default bright magenta color.
      *
      * @return A new Color instance representing the default bright magenta color.
      */
@@ -382,7 +435,7 @@ public:
     }
 
     /**
-     * @brief Gets the default cyan color.
+     * @brief  Styles the default cyan color.
      *
      * @return A new Color instance representing the default cyan color.
      */
@@ -392,7 +445,7 @@ public:
     }
 
     /**
-     * @brief Gets the default bright cyan color.
+     * @brief  Styles the default bright cyan color.
      *
      * @return A new Color instance representing the default bright cyan color.
      */
@@ -402,7 +455,7 @@ public:
     }
 
     /**
-     * @brief Gets the default white color.
+     * @brief  Styles the default white color.
      *
      * @return A new Color instance representing the default white color.
      */
@@ -412,7 +465,7 @@ public:
     }
 
     /**
-     * @brief Gets the default bright white color.
+     * @brief  Styles the default bright white color.
      *
      * @return A new Color instance representing the default bright white color.
      */
@@ -422,7 +475,7 @@ public:
     }
 
     /**
-     * @brief Gets a random color.
+     * @brief  Styles a random color.
      *
      * @return A new Color instance representing the random color.
      */
@@ -432,7 +485,7 @@ public:
     }
 
     /**
-     * @brief Gets a random bright color.
+     * @brief  Styles a random bright color.
      *
      * @return A partial ANSI code representing the random bright color.
      */
@@ -442,7 +495,7 @@ public:
     }
 
     /**
-     * @brief Gets a random dim color.
+     * @brief  Styles a random dim color.
      *
      * @return A new Color instance representing the random dim color.
      */
@@ -452,7 +505,7 @@ public:
     }
 
     /**
-     * @brief Gets the partial ansi color escape sequence.
+     * @brief  Styles the partial ansi color escape sequence.
      *
      * @return A partial ANSI code representing a color.
      */
@@ -492,11 +545,324 @@ const std::string END_SEQUENCE = "\x1b[0m";
 /**
  * Represents a style used for terminal text.
  */
-class Style
+class styled::terminal::Style
 {
 private:
-    std::string chain[8];
-    
-}
+    std::array<std::string, 8> chain;
+
+    std::string joinChain() const
+    {
+        std::string result = "";
+
+        for (const auto &str : chain)
+        {
+            result += str;
+        }
+
+        return result;
+    }
+
+    Style applyModifier(const Style &style, const EModifiers &modifier, const std::string &code = "") const
+    {
+        Style new_style = Style(style);
+        new_style.chain[modifier] = code;
+        return new_style;
+    }
+
+public:
+    Style() : chain() {}
+
+    Style(const Style &style) : chain(style.chain) {}
+
+    /**
+     * @brief  Resets all the current style modifiers.
+     *
+     * @return A new `Style` instance for fluent method chaining.
+     */
+    Style reset() const
+    {
+        return Style();
+    }
+
+    /**
+     * @brief  Hides the text.
+     *
+     * @return A new `Style` instance for fluent method chaining.
+     */
+    Style hidden() const
+    {
+        return this->applyModifier(*this, EModifiers::Visibility, "\x1b[8m");
+    }
+
+    /**
+     * @brief Force revealing a hidden text.
+     *
+     * @return A new `Style` instance for fluent method chaining.
+     */
+    Style reveal() const
+    {
+        return this->applyModifier(*this, EModifiers::Visibility, "\x1b[28m");
+    }
+
+    /**
+     * @brief Mode that swaps foreground and background colors.
+     *
+     * @return A new `Style` instance for fluent method chaining.
+     */
+    Style invert() const
+    {
+        return this->applyModifier(*this, EModifiers::Invert, "\x1b[7m");
+    }
+
+    /**
+     * @brief Force disable the mode that swaps foreground and background colors.
+     *
+     * @return A new `Style` instance for fluent method chaining.
+     */
+    Style noInvert() const
+    {
+        return this->applyModifier(*this, EModifiers::Invert, "\x1b[27m");
+    }
+
+    /**
+     * @brief Sets the mode that swaps foreground and background colors to auto.
+     *
+     * @return A new `Style` instance for fluent method chaining.
+     */
+    Style autoInvert() const
+    {
+        return this->applyModifier(*this, EModifiers::Invert);
+    }
+
+    /**
+     * @brief Sets visibility to be auto.
+     *
+     * @return A new `Style` instance for fluent method chaining.
+     */
+    Style autoVisibility() const
+    {
+        return this->applyModifier(*this, EModifiers::Visibility);
+    }
+
+    /**
+     * @brief Sets the font weight of the text to bold.
+     *
+     * @return A new `Style` instance for fluent method chaining.
+     */
+    Style bold() const
+    {
+        return this->applyModifier(*this, EModifiers::FontWeight, "\x1b[1m");
+    }
+
+    /**
+     * @brief Sets the font weight of the text to light.
+     *
+     * @return A new `Style` instance for fluent method chaining.
+     */
+    Style light() const
+    {
+        return this->applyModifier(*this, EModifiers::FontWeight, "\x1b[2m");
+    }
+
+    /**
+     * @brief Sets the font weight of the text to normal.
+     *
+     * @return A new `Style` instance for fluent method chaining.
+     */
+    Style normal() const
+    {
+        return this->applyModifier(*this, EModifiers::FontWeight, "\x1b[22m");
+    }
+
+    /**
+     * @brief Sets the font weight of the text to auto.
+     *
+     * @return A new `Style` instance for fluent method chaining.
+     */
+    Style autoFontWeight() const
+    {
+        return this->applyModifier(*this, EModifiers::FontWeight);
+    }
+
+    /**
+     * @brief Applies italic styling to the text.
+     *
+     * @return A new `Style` instance for fluent method chaining.
+     */
+    Style italic() const
+    {
+        return this->applyModifier(*this, EModifiers::Italic, "\x1b[3m");
+    }
+
+    /**
+     * @brief Force remove italic styling from the text.
+     *
+     * @return A new `Style` instance for fluent method chaining.
+     */
+    Style noItalic() const
+    {
+        return this->applyModifier(*this, EModifiers::Italic, "\x1b[3m");
+    }
+
+    /**
+     * @brief Sets italic styling of the text to auto.
+     *
+     * @return A new `Style` instance for fluent method chaining.
+     */
+    Style autoItalic() const
+    {
+        return this->applyModifier(*this, EModifiers::Italic);
+    }
+
+    /**
+     * @brief Applies underline styling to the text.
+     *
+     * @return A new `Style` instance for fluent method chaining.
+     */
+    Style underline() const
+    {
+        return this->applyModifier(*this, EModifiers::Underline, "\x1b[4m");
+    }
+
+    /**
+     * @brief Force remove any underline styling from the text.
+     *
+     * @return A new `Style` instance for fluent method chaining.
+     */
+    Style noUnderline() const
+    {
+        return this->applyModifier(*this, EModifiers::Underline, "\x1b[24m");
+    }
+
+    /**
+     * @brief Sets any underline styling from the text to auto.
+     *
+     * @return A new `Style` instance for fluent method chaining.
+     */
+    Style autoUnderline() const
+    {
+        return this->applyModifier(*this, EModifiers::Underline, "\x1b[24m");
+    }
+
+    /**
+     * @brief Applies strikethrough styling to the text.
+     *
+     * @return A new `Style` instance for fluent method chaining.
+     */
+    Style strikethrough() const
+    {
+        return this->applyModifier(*this, EModifiers::Strikethrough, "\x1b[9m");
+    }
+
+    /**
+     * @brief Force remove any strikethrough styling from the text.
+     *
+     * @return A new `Style` instance for fluent method chaining.
+     */
+    Style noStrikethrough() const
+    {
+        return this->applyModifier(*this, EModifiers::Strikethrough, "\x1b[29m");
+    }
+
+    // [Color Methods]
+
+    /**
+     * @brief Force resetting the foreground color to the terminal default value.
+     *
+     * @return A new `Style` instance for fluent method chaining.
+     */
+    Style resetFg() const
+    {
+        return this->applyModifier(*this, EModifiers::ForegroundColor, "\x1b[39m");
+    }
+
+    /**
+     * @brief Setting the foreground color to auto.
+     *
+     * @return A new `Style` instance for fluent method chaining.
+     */
+    Style autoFg() const
+    {
+        return this->applyModifier(*this, EModifiers::ForegroundColor);
+    }
+
+    /**
+     * @brief Sets the foreground color of the text.
+     *
+     * @param color A Color instance representing a color.
+     * @return A new `Style` instance for fluent method chaining.
+     */
+    Style fg(const styled::terminal::Color &color) const
+    {
+        return this->applyModifier(*this, EModifiers::ForegroundColor, std::string("\x1b[38;") + color.getCode() + "m");
+    }
+
+    /**
+     * @brief Force resetting the background color to the terminal default value.
+     *
+     * @return A new `Style` instance for fluent method chaining.
+     */
+    Style resetBg() const
+    {
+        return this->applyModifier(*this, EModifiers::BackgroundColor, "\x1b[49m");
+    }
+
+    /**
+     * @brief Setting the background color to be auto.
+     *
+     * @return A new `Style` instance for fluent method chaining.
+     */
+    Style autoBg() const
+    {
+        return this->applyModifier(*this, EModifiers::BackgroundColor);
+    }
+
+    /**
+     * @brief Sets the background color of the text.
+     *
+     * @param color A Color instance representing a color.
+     * @returns {StyleObject} A new `Style` instance for fluent method chaining.
+     */
+    Style bg(const styled::terminal::Color &color) const
+    {
+        return this->applyModifier(*this, EModifiers::BackgroundColor, std::string("\x1b[48;") + color.getCode() + "m");
+    }
+
+    // [Style Application]
+
+    /**
+     * @brief Applies a style to a string by concatenating it with additional strings.
+     *
+     * @param str The base string to apply the style to.
+     * @param args Additional strings to concatenate (by " ").
+     * @return The styled and concatenated string.
+     */
+    std::string apply(const std::string &str, const std::vector<std::string> &args)
+    {
+        std::string new_str = str;
+
+        for (const auto &arg : args)
+        {
+            new_str += " " + arg;
+        }
+
+        std::string chain = this->joinChain();
+
+        if (!chain.length() || !new_str.length())
+            return str;
+
+        // Nested styles logic.
+        auto segments = split(new_str, END_SEQUENCE);
+
+        std::string result = "";
+
+        for (auto it = segments.begin(); it != segments.end(); ++it)
+        {
+            result += chain + (*it) + END_SEQUENCE;
+        }
+
+        return result;
+    }
+};
 
 #endif
