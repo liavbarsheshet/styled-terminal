@@ -9,8 +9,8 @@
 import { InvalidParameter } from "./errors";
 import { rand } from "./util";
 
-/** Represents a color ansi code. */
-export type TColorCode = `5;${number}` | `2;${number};${number};${number}`;
+/** Represents a partial ansi color escape code. */
+export type TColorCode = string;
 
 /**
  * Represents a Color.
@@ -49,7 +49,7 @@ export class Color {
    *
    * @returns {Color} A new Color instance representing the default black color.
    */
-  static get black(): Color {
+  static black(): Color {
     return Color.table256(0);
   }
 
@@ -58,7 +58,7 @@ export class Color {
    *
    * @returns {Color} A new Color instance representing the default bright black color.
    */
-  static get brightBlack(): Color {
+  static brightBlack(): Color {
     return Color.table256(8);
   }
 
@@ -67,7 +67,7 @@ export class Color {
    *
    * @returns {Color} A new Color instance representing the default red color.
    */
-  static get red(): Color {
+  static red(): Color {
     return Color.table256(1);
   }
 
@@ -76,7 +76,7 @@ export class Color {
    *
    * @returns {Color} A new Color instance representing the default bright red color.
    */
-  static get brightRed(): Color {
+  static brightRed(): Color {
     return Color.table256(9);
   }
 
@@ -85,7 +85,7 @@ export class Color {
    *
    * @returns {Color} A new Color instance representing the default green color.
    */
-  static get green(): Color {
+  static green(): Color {
     return Color.table256(2);
   }
 
@@ -94,7 +94,7 @@ export class Color {
    *
    * @returns {Color} A new Color instance representing the default bright green color.
    */
-  static get brightGreen(): Color {
+  static brightGreen(): Color {
     return Color.table256(10);
   }
 
@@ -103,7 +103,7 @@ export class Color {
    *
    * @returns {Color} A new Color instance representing the default yellow color.
    */
-  static get yellow(): Color {
+  static yellow(): Color {
     return Color.table256(3);
   }
 
@@ -112,7 +112,7 @@ export class Color {
    *
    * @returns {Color} A new Color instance representing the default bright yellow color.
    */
-  static get brightYellow(): Color {
+  static brightYellow(): Color {
     return Color.table256(11);
   }
 
@@ -121,7 +121,7 @@ export class Color {
    *
    * @returns {Color} A new Color instance representing the default blue color.
    */
-  static get blue(): Color {
+  static blue(): Color {
     return Color.table256(4);
   }
 
@@ -130,7 +130,7 @@ export class Color {
    *
    * @returns {Color} A new Color instance representing the default bright blue color.
    */
-  static get brightBlue(): Color {
+  static brightBlue(): Color {
     return Color.table256(12);
   }
 
@@ -139,7 +139,7 @@ export class Color {
    *
    * @returns {Color} A new Color instance representing the default magenta color.
    */
-  static get magenta(): Color {
+  static magenta(): Color {
     return Color.table256(5);
   }
 
@@ -148,7 +148,7 @@ export class Color {
    *
    * @returns {Color} A new Color instance representing the default bright magenta color.
    */
-  static get brightMagenta(): Color {
+  static brightMagenta(): Color {
     return Color.table256(13);
   }
 
@@ -157,7 +157,7 @@ export class Color {
    *
    * @returns {Color} A new Color instance representing the default cyan color.
    */
-  static get cyan(): Color {
+  static cyan(): Color {
     return Color.table256(6);
   }
 
@@ -166,7 +166,7 @@ export class Color {
    *
    * @returns {Color} A new Color instance representing the default bright cyan color.
    */
-  static get brightCyan(): Color {
+  static brightCyan(): Color {
     return Color.table256(14);
   }
 
@@ -175,7 +175,7 @@ export class Color {
    *
    * @returns {Color} A new Color instance representing the default white color.
    */
-  static get white(): Color {
+  static white(): Color {
     return Color.table256(7);
   }
 
@@ -184,7 +184,7 @@ export class Color {
    *
    * @returns {Color} A new Color instance representing the default bright white color.
    */
-  static get brightWhite(): Color {
+  static brightWhite(): Color {
     return Color.table256(15);
   }
 
@@ -193,7 +193,7 @@ export class Color {
    *
    * @returns {Color} A new Color instance representing the random color.
    */
-  static get random(): Color {
+  static random(): Color {
     return Color.rgb(rand(0, 255), rand(0, 255), rand(0, 255));
   }
 
@@ -202,7 +202,7 @@ export class Color {
    *
    * @returns {Color} A partial ANSI code representing the random bright color.
    */
-  static get randomBright(): Color {
+  static randomBright(): Color {
     return Color.hsl(rand(0, 360), 100, rand(50, 85));
   }
 
@@ -211,7 +211,7 @@ export class Color {
    *
    * @returns {Color} A new Color instance representing the random dim color.
    */
-  static get randomDim(): Color {
+  static randomDim(): Color {
     return Color.hsl(rand(0, 360), 50, rand(15, 50));
   }
 

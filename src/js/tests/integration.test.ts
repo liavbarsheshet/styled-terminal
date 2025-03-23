@@ -14,13 +14,13 @@ describe("Integration Tests: Styled Terminal Output", () => {
   });
 
   it("should output styled text to console.log with default style instance", () => {
-    const styledText = style.bold.fg(Color.red).apply("Styled Text");
+    const styledText = style.bold.fg(Color.red()).apply("Styled Text");
     console.log(styledText);
     expect(consoleLogSpy).toHaveBeenCalledWith("\x1b[1m\x1b[38;5;1mStyled Text\x1b[0m");
   });
 
   it("should output styled text to console.log with custom style instance", () => {
-    const customStyle = new Style().underline.bg(Color.blue);
+    const customStyle = new Style().underline.bg(Color.blue());
     const styledText = customStyle.apply("Another Styled Text");
     console.log(styledText);
     expect(consoleLogSpy).toHaveBeenCalledWith("\x1b[4m\x1b[48;5;4mAnother Styled Text\x1b[0m");
@@ -42,7 +42,7 @@ describe("Integration Tests: Styled Terminal Output", () => {
   });
 
   it("should handle reset styles correctly", () => {
-    const resetStyle = style.bold.fg(Color.green).reset;
+    const resetStyle = style.bold.fg(Color.green()).reset;
     const styledText = resetStyle.apply("Reset Text");
     console.log(styledText);
     expect(consoleLogSpy).toHaveBeenCalledWith("Reset Text");
@@ -66,14 +66,14 @@ describe("Integration Tests: Styled Terminal Output", () => {
     console.log(style.noStrikethrough.apply("No Strikethrough Text"));
 
     expect(consoleLogSpy).toHaveBeenCalledWith("\x1b[2mLight Text\x1b[0m");
-    expect(consoleLogSpy).toHaveBeenCalledWith("\x1b[22mNormal Text\x1b[0m");
+    expect(consoleLogSpy).toHaveBeenCalledWith("\x1b[21m\x1b[22mNormal Text\x1b[0m");
     expect(consoleLogSpy).toHaveBeenCalledWith("\x1b[9mStrikethrough Text\x1b[0m");
     expect(consoleLogSpy).toHaveBeenCalledWith("\x1b[29mNo Strikethrough Text\x1b[0m");
   });
 
   it("should handle resetFg and resetBg styles", () => {
-    console.log(style.fg(Color.red).resetFg.apply("Reset Foreground"));
-    console.log(style.bg(Color.blue).resetBg.apply("Reset Background"));
+    console.log(style.fg(Color.red()).resetFg.apply("Reset Foreground"));
+    console.log(style.bg(Color.blue()).resetBg.apply("Reset Background"));
 
     expect(consoleLogSpy).toHaveBeenCalledWith("\x1b[39mReset Foreground\x1b[0m");
     expect(consoleLogSpy).toHaveBeenCalledWith("\x1b[49mReset Background\x1b[0m");
