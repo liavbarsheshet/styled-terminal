@@ -1,14 +1,14 @@
 {
   "name": "styled-terminal",
   "version": "2.0.0",
-  "description": "Create and manage styles for the console with ease.",
+  "description": "A fast, robust and lightweight terminal string styling library.",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/types/index.d.ts",
   "files": [
-    "dist/cjs",
-    "dist/esm",
-    "dist/types"
+    "dist",
+    "LICENSE",
+    "readme.md"
   ],
   "license": "MIT",
   "author": {

@@ -1,8 +1,8 @@
 CXX = g++
-CXXFLAGS = -std=c++14 -Wall -Wextra -pedantic -mconsole
+CXXFLAGS = -std=c++14
 BUILD_DIR = build
-TEST_SRC = tests/tests.hpp
-TEST_EXE = $(BUILD_DIR)/tests.exe
+TEST_SRC = tests/tests.cpp
+TEST_EXE = $(BUILD_DIR)/tests
 
 $(TEST_EXE): $(TEST_SRC) tests/catch.hpp lib/styled-terminal.hpp
 	$(CXX) $(CXXFLAGS) $(TEST_SRC) -o $(TEST_EXE)

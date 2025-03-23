@@ -1,8 +1,8 @@
 /**
- * Styled Terminal [TODO: Add Description]
+ * Styled Terminal
  * @version 2.0.0
  *
- * @brief Implementation of a  [TODO: Add Description].
+ * @brief A fast, robust and lightweight terminal string styling library.
  *
  * @author Liav Barsheshet <LBDevelopments> © 2025
  */
