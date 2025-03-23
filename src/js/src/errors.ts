@@ -3,8 +3,7 @@
  *
  * Extends support for custom error handling.
  *
- * @author Liav Barsheshet <liavbarsheshet@gmail.com>
- * @copyright Liav Barsheshet <LBDevelopments> © 2025
+ * @author Liav Barsheshet <liavbarsheshet@gmail.com> © 2025
  */
 
 /**

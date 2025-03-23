@@ -14,7 +14,7 @@ import { InvalidParameter } from "./errors";
  * Represents the modifiers and their location.
  */
 enum EModifiers {
-  /** Represents font weight modifier (Bold, Light and Normal) */
+  /** Represents font weight modifier (Bold, Light and Normal). */
   FontWeight,
   /** Represent italic modifier.*/
   Italic,
@@ -44,6 +44,7 @@ type TAnsi =
         | 7
         | 8
         | 9
+        | 21
         | 22
         | 23
         | 24
@@ -66,8 +67,8 @@ export class Style {
   /** Chain of styles. */
   #chain: TAnsi[];
 
-  private applyModifier(style: Style, modifier: EModifiers, code: TAnsi = ""): Style {
-    let new_style = new Style(style);
+  private applyModifier(modifier: EModifiers, code: TAnsi = ""): Style {
+    let new_style = new Style(this);
     new_style.#chain[modifier] = code;
     return new_style;
   }
@@ -92,7 +93,7 @@ export class Style {
    * @returns {Style} A new `Style` instance for fluent method chaining.
    */
   get hidden(): Style {
-    return this.applyModifier(this, EModifiers.Visibility, `\x1b[8m`);
+    return this.applyModifier(EModifiers.Visibility, `\x1b[8m`);
   }
 
   /**
@@ -101,34 +102,7 @@ export class Style {
    * @returns {Style} A new `Style` instance for fluent method chaining.
    */
   get reveal(): Style {
-    return this.applyModifier(this, EModifiers.Visibility, `\x1b[28m`);
-  }
-
-  /**
-   * Mode that swaps foreground and background colors.
-   *
-   * @returns {Style} A new `Style` instance for fluent method chaining.
-   */
-  get invert(): Style {
-    return this.applyModifier(this, EModifiers.Invert, `\x1b[7m`);
-  }
-
-  /**
-   * Force disable the mode that swaps foreground and background colors.
-   *
-   * @returns {Style} A new `Style` instance for fluent method chaining.
-   */
-  get noInvert(): Style {
-    return this.applyModifier(this, EModifiers.Invert, `\x1b[27m`);
-  }
-
-  /**
-   * Sets the mode that swaps foreground and background colors to auto.
-   *
-   * @returns {Style} A new `Style` instance for fluent method chaining.
-   */
-  get autoInvert(): Style {
-    return this.applyModifier(this, EModifiers.Invert);
+    return this.applyModifier(EModifiers.Visibility, `\x1b[28m`);
   }
 
   /**
@@ -137,7 +111,34 @@ export class Style {
    * @returns {Style} A new `Style` instance for fluent method chaining.
    */
   get autoVisibility(): Style {
-    return this.applyModifier(this, EModifiers.Visibility);
+    return this.applyModifier(EModifiers.Visibility);
+  }
+
+  /**
+   * Mode that swaps foreground and background colors.
+   *
+   * @returns {Style} A new `Style` instance for fluent method chaining.
+   */
+  get invert(): Style {
+    return this.applyModifier(EModifiers.Invert, `\x1b[7m`);
+  }
+
+  /**
+   * Force disable the mode that swaps foreground and background colors.
+   *
+   * @returns {Style} A new `Style` instance for fluent method chaining.
+   */
+  get noInvert(): Style {
+    return this.applyModifier(EModifiers.Invert, `\x1b[27m`);
+  }
+
+  /**
+   * Sets the mode that swaps foreground and background colors to auto.
+   *
+   * @returns {Style} A new `Style` instance for fluent method chaining.
+   */
+  get autoInvert(): Style {
+    return this.applyModifier(EModifiers.Invert);
   }
 
   /**
@@ -146,7 +147,7 @@ export class Style {
    * @returns {Style} A new `Style` instance for fluent method chaining.
    */
   get bold(): Style {
-    return this.applyModifier(this, EModifiers.FontWeight, `\x1b[1m`);
+    return this.applyModifier(EModifiers.FontWeight, `\x1b[1m`);
   }
 
   /**
@@ -155,7 +156,7 @@ export class Style {
    * @returns {Style} A new `Style` instance for fluent method chaining.
    */
   get light(): Style {
-    return this.applyModifier(this, EModifiers.FontWeight, `\x1b[2m`);
+    return this.applyModifier(EModifiers.FontWeight, `\x1b[2m`);
   }
 
   /**
@@ -164,7 +165,7 @@ export class Style {
    * @returns {Style} A new `Style` instance for fluent method chaining.
    */
   get normal(): Style {
-    return this.applyModifier(this, EModifiers.FontWeight, `\x1b[22m`);
+    return this.applyModifier(EModifiers.FontWeight, `\x1b[22m`);
   }
 
   /**
@@ -173,7 +174,7 @@ export class Style {
    * @returns {Style} A new `Style` instance for fluent method chaining.
    */
   get autoFontWeight(): Style {
-    return this.applyModifier(this, EModifiers.FontWeight);
+    return this.applyModifier(EModifiers.FontWeight);
   }
 
   /**
@@ -182,7 +183,7 @@ export class Style {
    * @returns {Style} A new `Style` instance for fluent method chaining.
    */
   get italic(): Style {
-    return this.applyModifier(this, EModifiers.Italic, `\x1b[3m`);
+    return this.applyModifier(EModifiers.Italic, `\x1b[3m`);
   }
 
   /**
@@ -191,7 +192,7 @@ export class Style {
    * @returns {Style} A new `Style` instance for fluent method chaining.
    */
   get noItalic(): Style {
-    return this.applyModifier(this, EModifiers.Italic, `\x1b[3m`);
+    return this.applyModifier(EModifiers.Italic, `\x1b[23m`);
   }
 
   /**
@@ -200,7 +201,7 @@ export class Style {
    * @returns {Style} A new `Style` instance for fluent method chaining.
    */
   get autoItalic(): Style {
-    return this.applyModifier(this, EModifiers.Italic);
+    return this.applyModifier(EModifiers.Italic);
   }
 
   /**
@@ -209,7 +210,7 @@ export class Style {
    * @returns {Style} A new `Style` instance for fluent method chaining.
    */
   get underline(): Style {
-    return this.applyModifier(this, EModifiers.Underline, `\x1b[4m`);
+    return this.applyModifier(EModifiers.Underline, `\x1b[4m`);
   }
 
   /**
@@ -218,7 +219,7 @@ export class Style {
    * @returns {Style} A new `Style` instance for fluent method chaining.
    */
   get noUnderline(): Style {
-    return this.applyModifier(this, EModifiers.Underline, `\x1b[24m`);
+    return this.applyModifier(EModifiers.Underline, `\x1b[24m`);
   }
 
   /**
@@ -227,7 +228,7 @@ export class Style {
    * @returns {Style} A new `Style` instance for fluent method chaining.
    */
   get autoUnderline(): Style {
-    return this.applyModifier(this, EModifiers.Underline, `\x1b[24m`);
+    return this.applyModifier(EModifiers.Underline);
   }
 
   /**
@@ -236,7 +237,7 @@ export class Style {
    * @returns {Style} A new `Style` instance for fluent method chaining.
    */
   get strikethrough(): Style {
-    return this.applyModifier(this, EModifiers.Strikethrough, `\x1b[9m`);
+    return this.applyModifier(EModifiers.Strikethrough, `\x1b[9m`);
   }
 
   /**
@@ -245,10 +246,17 @@ export class Style {
    * @returns {Style} A new `Style` instance for fluent method chaining.
    */
   get noStrikethrough(): Style {
-    return this.applyModifier(this, EModifiers.Strikethrough, `\x1b[29m`);
+    return this.applyModifier(EModifiers.Strikethrough, `\x1b[29m`);
   }
 
-  // [Color Methods]
+  /**
+   * Sets any strikethrough styling from the text to auto.
+   *
+   * @returns {Style} A new `Style` instance for fluent method chaining.
+   */
+  get autoStrikethrough(): Style {
+    return this.applyModifier(EModifiers.Strikethrough);
+  }
 
   /**
    * Force resetting the foreground color to the terminal default value.
@@ -256,7 +264,7 @@ export class Style {
    * @returns {Style} A new `Style` instance for fluent method chaining.
    */
   get resetFg(): Style {
-    return this.applyModifier(this, EModifiers.ForegroundColor, `\x1b[39m`);
+    return this.applyModifier(EModifiers.ForegroundColor, `\x1b[39m`);
   }
 
   /**
@@ -265,7 +273,7 @@ export class Style {
    * @returns {Style} A new `Style` instance for fluent method chaining.
    */
   get autoFg(): Style {
-    return this.applyModifier(this, EModifiers.ForegroundColor);
+    return this.applyModifier(EModifiers.ForegroundColor);
   }
 
   /**
@@ -275,7 +283,7 @@ export class Style {
    * @returns {Style} A new `Style` instance for fluent method chaining.
    */
   fg(color: Color): Style {
-    return this.applyModifier(this, EModifiers.ForegroundColor, `\x1b[38;${color.code}m`);
+    return this.applyModifier(EModifiers.ForegroundColor, `\x1b[38;${color.code}m`);
   }
 
   /**
@@ -284,7 +292,7 @@ export class Style {
    * @returns {Style} A new `Style` instance for fluent method chaining.
    */
   get resetBg(): Style {
-    return this.applyModifier(this, EModifiers.BackgroundColor, `\x1b[49m`);
+    return this.applyModifier(EModifiers.BackgroundColor, `\x1b[49m`);
   }
 
   /**
@@ -293,7 +301,7 @@ export class Style {
    * @returns {Style} A new `Style` instance for fluent method chaining.
    */
   get autoBg(): Style {
-    return this.applyModifier(this, EModifiers.BackgroundColor);
+    return this.applyModifier(EModifiers.BackgroundColor);
   }
 
   /**
@@ -303,7 +311,7 @@ export class Style {
    * @returns {StyleObject} A new `Style` instance for fluent method chaining.
    */
   bg(color: Color): Style {
-    return this.applyModifier(this, EModifiers.BackgroundColor, `\x1b[48;${color.code}m`);
+    return this.applyModifier(EModifiers.BackgroundColor, `\x1b[48;${color.code}m`);
   }
 
   // [Style Application]
@@ -316,14 +324,12 @@ export class Style {
    * @returns {string} The styled and concatenated string.
    */
   apply(str: string, ...args: string[]): string {
-    // Accepting only strings.
     if (typeof str !== "string" || args.filter((v) => typeof v !== "string").length)
       throw new InvalidParameter("string, [string...]", "a valid string");
 
-    // String concat.
+    // String concatenation
     str = `${str}${args.length ? " " : ""}${args.join(" ")}`;
 
-    // Filters the chain from undefined values
     const chain: string = this.#chain.join("");
 
     if (!chain.length || !str.length) return str;
