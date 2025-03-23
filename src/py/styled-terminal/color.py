@@ -6,8 +6,8 @@ A simple way of creating colors to style the terminal.
 Author: Liav Barsheshet <liavbarsheshet@gmail.com> © 2025
 """
 
-from errors import InvalidParameter
-from util import rand
+from .errors import InvalidParameter
+from .util import rand
 
 import re
 

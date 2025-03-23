@@ -6,9 +6,9 @@ Creates a style infrastructure for terminal text.
 Author: Liav Barsheshet <liavbarsheshet@gmail.com> © 2025
 """
 
-from errors import InvalidParameter
+from .errors import InvalidParameter
 from typing import Optional
-from color import Color
+from .color import Color
 
 from enum import Enum
 

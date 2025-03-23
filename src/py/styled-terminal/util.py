@@ -6,7 +6,7 @@ Utilities.
 Author: Liav Barsheshet <liavbarsheshet@gmail.com> © 2025
 """
 
-from errors import InvalidParameter
+from .errors import InvalidParameter
 
 import random
 import math
