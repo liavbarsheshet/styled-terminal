@@ -36,7 +36,6 @@ class Color:
 
     # [Default Colors]
 
-    @property
     @staticmethod
     def black() -> "Color":
         """
@@ -47,7 +46,6 @@ class Color:
         """
         return Color.table256(0)
 
-    @property
     @staticmethod
     def brightBlack() -> "Color":
         """
@@ -56,9 +54,8 @@ class Color:
         Returns:
         A new Color instance representing the default bright black color.
         """
-        return Color.table256(0)
+        return Color.table256(8)
 
-    @property
     @staticmethod
     def red() -> "Color":
         """
@@ -69,7 +66,6 @@ class Color:
         """
         return Color.table256(1)
 
-    @property
     @staticmethod
     def brightRed() -> "Color":
         """
@@ -80,7 +76,6 @@ class Color:
         """
         return Color.table256(9)
 
-    @property
     @staticmethod
     def green() -> "Color":
         """
@@ -91,7 +86,6 @@ class Color:
         """
         return Color.table256(2)
 
-    @property
     @staticmethod
     def brightGreen() -> "Color":
         """
@@ -102,7 +96,6 @@ class Color:
         """
         return Color.table256(10)
 
-    @property
     @staticmethod
     def yellow() -> "Color":
         """
@@ -113,7 +106,6 @@ class Color:
         """
         return Color.table256(3)
 
-    @property
     @staticmethod
     def brightYellow() -> "Color":
         """
@@ -124,7 +116,6 @@ class Color:
         """
         return Color.table256(11)
 
-    @property
     @staticmethod
     def blue() -> "Color":
         """
@@ -135,7 +126,6 @@ class Color:
         """
         return Color.table256(4)
 
-    @property
     @staticmethod
     def brightBlue() -> "Color":
         """
@@ -146,7 +136,6 @@ class Color:
         """
         return Color.table256(12)
 
-    @property
     @staticmethod
     def magenta() -> "Color":
         """
@@ -157,7 +146,6 @@ class Color:
         """
         return Color.table256(5)
 
-    @property
     @staticmethod
     def brightMagenta() -> "Color":
         """
@@ -168,7 +156,6 @@ class Color:
         """
         return Color.table256(13)
 
-    @property
     @staticmethod
     def cyan() -> "Color":
         """
@@ -179,7 +166,6 @@ class Color:
         """
         return Color.table256(6)
 
-    @property
     @staticmethod
     def brightCyan() -> "Color":
         """
@@ -190,7 +176,6 @@ class Color:
         """
         return Color.table256(14)
 
-    @property
     @staticmethod
     def white() -> "Color":
         """
@@ -201,7 +186,6 @@ class Color:
         """
         return Color.table256(7)
 
-    @property
     @staticmethod
     def brightWhite() -> "Color":
         """
@@ -212,7 +196,6 @@ class Color:
         """
         return Color.table256(15)
 
-    @property
     @staticmethod
     def random() -> "Color":
         """
@@ -223,7 +206,6 @@ class Color:
         """
         return Color.rgb(rand(0, 255), rand(0, 255), rand(0, 255))
 
-    @property
     @staticmethod
     def randomBright() -> "Color":
         """
@@ -234,7 +216,6 @@ class Color:
         """
         return Color.hsl(rand(0, 360), 100, rand(50, 85))
 
-    @property
     @staticmethod
     def randomDim() -> "Color":
         """
@@ -283,7 +264,7 @@ class Color:
         if red > 255 or red < 0:
             raise InvalidParameter("red", "a number between 0-255")
 
-        return Color(f"5;{red};{green};{blue}")
+        return Color(f"2;{red};{green};{blue}")
 
     @staticmethod
     def hsl(hue: int, saturation: int, lightness: int) -> "Color":
@@ -308,7 +289,7 @@ class Color:
 
         s = saturation / 100
         l = lightness / 100
-        c = 1 - abs(2 * l - 1) * s
+        c = (1 - abs(2 * l - 1)) * s
         x = c * (1 - abs(((hue / 60) % 2) - 1))
         m = l - c / 2
 
@@ -371,4 +352,7 @@ class Color:
 
     @property
     def code(self) -> str:
+        """
+        Returns the partial ANSI color code.
+        """
         return self._code

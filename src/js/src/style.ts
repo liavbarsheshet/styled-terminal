@@ -33,29 +33,7 @@ enum EModifiers {
 }
 
 /** Represents allowed ANSI escape sequences. */
-type TAnsi =
-  | (string &
-      `\x1b[${
-        | 0
-        | 1
-        | 2
-        | 3
-        | 4
-        | 7
-        | 8
-        | 9
-        | 21
-        | 22
-        | 23
-        | 24
-        | 27
-        | 28
-        | 29
-        | 39
-        | 49
-        | `38;${TColorCode}`
-        | `48;${TColorCode}`}m`)
-  | "";
+type TAnsi = string;
 
 /** Marks the end of a specific style. */
 const END_SEQUENCE: TAnsi = `\x1b[0m`;
@@ -165,7 +143,7 @@ export class Style {
    * @returns {Style} A new `Style` instance for fluent method chaining.
    */
   get normal(): Style {
-    return this.applyModifier(EModifiers.FontWeight, `\x1b[22m`);
+    return this.applyModifier(EModifiers.FontWeight, `\x1b[21m\x1b[22m`);
   }
 
   /**

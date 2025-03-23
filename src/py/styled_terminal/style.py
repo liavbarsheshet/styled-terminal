@@ -37,7 +37,7 @@ class EModifiers(Enum):
 
 
 # Marks the end of a specific style.
-END_SEQUENCE = "\x1b"
+END_SEQUENCE = "\x1b[0m"
 
 
 class Style:
@@ -50,7 +50,7 @@ class Style:
         new_style._chain[modifier.value] = code
         return new_style
 
-    def __init__(self, style: Optional["Style"]):
+    def __init__(self, style: Optional["Style"] = None):
         self._chain = [""] * 8
         """Chain of styles."""
 
@@ -277,7 +277,6 @@ class Style:
         """
         return self._applyModifier(EModifiers.ForegroundColor)
 
-    @property
     def fg(self, color: Color) -> "Style":
         """
         Sets the foreground color of the text.
@@ -310,7 +309,6 @@ class Style:
         """
         return self._applyModifier(EModifiers.BackgroundColor)
 
-    @property
     def bg(self, color: Color) -> "Style":
         """
         Sets the background color of the text.
