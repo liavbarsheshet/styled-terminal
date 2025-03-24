@@ -14,6 +14,7 @@
 #include <array>
 #include <cmath>
 #include <regex>
+#include <iostream>
 
 #ifndef _STYLED_TERMINAL_HPP
 #define _STYLED_TERMINAL_HPP
@@ -218,14 +219,14 @@ namespace StyledTerminal
             if (lightness > 100)
                 throw new InvalidParameter("lightness", "a number between 0-100");
 
-            const float s = saturation / 100;
-            const float l = lightness / 100;
+            const double s = saturation / 100.0;
+            const double l = lightness / 100.0;
 
-            const float c = (1 - abs(2 * l - 1)) * s;
-            const float x = c * (1 - abs(((hue / 60) % 2) - 1));
-            const float m = l - c / 2;
+            const double c = (1 - std::fabs(2 * l - 1)) * s;
+            const double x = c * (1 - std::fabs((fmod(hue / 60, 2)) - 1));
+            const double m = l - c / 2;
 
-            float r, g, b;
+            double r, g, b;
 
             if (hue < 60)
             {
@@ -474,7 +475,7 @@ namespace StyledTerminal
          */
         static Color random()
         {
-            return Color::hsl(rand(0, 360), rand(0, 100), rand(0, 100));
+            return Color::rgb(rand(0, 255), rand(0, 255), rand(0, 255));
         }
 
         /**

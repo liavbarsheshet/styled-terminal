@@ -1,5 +1,5 @@
 CXX = g++
-CXXFLAGS = -std=c++14
+CXXFLAGS = -std=c++11
 BUILD_DIR = build
 TEST_SRC = tests/tests.cpp
 TEST_EXE = $(BUILD_DIR)/tests

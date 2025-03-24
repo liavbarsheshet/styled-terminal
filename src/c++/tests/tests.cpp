@@ -8,7 +8,7 @@ using StyledTerminal::Style;
 
 int main()
 {
-    std::cout << Style().bg(Color::red()).apply("Hello World!") << std::endl;
+    std::cout << Style().bg(Color::random()).apply("Hello World!") << std::endl;
     std::cin.get();
     return 0;
 }
