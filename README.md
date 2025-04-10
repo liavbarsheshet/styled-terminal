@@ -1,11 +1,15 @@
-![styled-terminal logo](https://lh3.googleusercontent.com/qsZp90wTSYqcnQgSTmQxV6lTs97zE_an19dZGS7K5sx7gbslJMzbCSut03gRKVSHzKhW1Pz7r2TLr-_mU0c1Hb0mguU6u8KUZoGoUv8eVUl6tjhPWlT01TKFVUb6Q8Nj2SlaD6lrWA=w466-h142)
+<h1 align="center">
+	<br>
+	<img src="assets/logo.png" alt="styled-terminal logo">
+	<br>
+	<br>
+</h1>
 
----
+> A fast, robust and lightweight terminal string styling library.
 
-Create, manage styles for console.
-
-[![NPM Version][npm-image]][npm-url]
 [![NPM Downloads][downloads-image]][downloads-url]
+[![npm dependents](https://badgen.net/npm/dependents/styled-terminal)](https://www.npmjs.com/package/styled-terminal?activeTab=dependents)
+[![NPM Version][npm-image]][npm-url]
 
 ## Installation
 
@@ -16,12 +20,32 @@ Installation is done using the
 $ npm install styled-terminal
 ```
 
+## Highlights
+
+- Supports a wide range of color formats, including 8-bit, 256-bit, RGB, HSL, and HEX.
+- Modular design enables the creation of palettes and reusable styles.
+- Does not extend `String.prototype`
+- Minimize's string pollution.
+- Ability to nest styles
+- Lightweight `< 40Kb`.
+- Highly performant.
+- No dependencies.
+- Expressive.
+- Maintained.
+- Robust.
+
 ## Declaration
 
-via ES5:
+##### via ES5
 
 ```js
-const style = require("styled-terminal");
+const { style } = require("styled-terminal");
+```
+
+##### via ES6
+
+```js
+import { style } from "styled-terminal";
 ```
 
 ## Usage
@@ -42,20 +66,7 @@ type StyleObject = {
   underlineColor?: Color;
   visibility?: "hidden" | "visible";
   border?: "box" | "circle";
-  font?:
-    | "0"
-    | "1"
-    | "2"
-    | "3"
-    | "4"
-    | "5"
-    | "6"
-    | "7"
-    | "8"
-    | "9"
-    | "10"
-    | "fraktur"
-    | "gothic";
+  font?: "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "10" | "fraktur" | "gothic";
   blink?: "slow" | "fast";
   colorMode?: "auto" | "invert";
 };
@@ -108,15 +119,7 @@ _The underlineColor property sets the underline color of a text, it can only rec
 ### Color
 
 ```ts
-type BaseColors =
-  | "black"
-  | "red"
-  | "green"
-  | "yellow"
-  | "blue"
-  | "magenta"
-  | "cyan"
-  | "white";
+type BaseColors = "black" | "red" | "green" | "yellow" | "blue" | "magenta" | "cyan" | "white";
 
 type Color =
   | BaseColors
