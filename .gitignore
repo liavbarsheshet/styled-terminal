@@ -1,1 +1,7 @@
-.vscode/
+# npm
+node_modules
+dist
+tmp
+assets
+package-lock.jsong
+*.gz
