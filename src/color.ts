@@ -29,7 +29,10 @@ export class Color {
       /^(?:(?:5;(?:(?:\d)|(?:[1-9]\d)|(?:1\d\d)|(?:2[0-4]\d)|(?:25[0-5])))|(?:2;(?:(?:\d)|(?:[1-9]\d)|(?:1\d\d)|(?:2[0-4]\d)|(?:25[0-5]));(?:(?:\d)|(?:[1-9]\d)|(?:1\d\d)|(?:2[0-4]\d)|(?:25[0-5]));(?:(?:\d)|(?:[1-9]\d)|(?:1\d\d)|(?:2[0-4]\d)|(?:25[0-5]))))$/;
 
     if (!regex.test(code))
-      throw new InvalidParameter("code", "in the format '5;[0-255]' or 2;[red];[green];[blue]");
+      throw new InvalidParameter(
+        "code",
+        "in the format '5;[0-255]' or 2;[red];[green];[blue]"
+      );
 
     this.#code = code;
   }
@@ -49,7 +52,7 @@ export class Color {
    *
    * @returns {Color} A new Color instance representing the default black color.
    */
-  static black(): Color {
+  static get black(): Color {
     return Color.table256(0);
   }
 
@@ -58,7 +61,7 @@ export class Color {
    *
    * @returns {Color} A new Color instance representing the default bright black color.
    */
-  static brightBlack(): Color {
+  static get brightBlack(): Color {
     return Color.table256(8);
   }
 
@@ -67,7 +70,7 @@ export class Color {
    *
    * @returns {Color} A new Color instance representing the default red color.
    */
-  static red(): Color {
+  static get red(): Color {
     return Color.table256(1);
   }
 
@@ -76,7 +79,7 @@ export class Color {
    *
    * @returns {Color} A new Color instance representing the default bright red color.
    */
-  static brightRed(): Color {
+  static get brightRed(): Color {
     return Color.table256(9);
   }
 
@@ -85,7 +88,7 @@ export class Color {
    *
    * @returns {Color} A new Color instance representing the default green color.
    */
-  static green(): Color {
+  static get green(): Color {
     return Color.table256(2);
   }
 
@@ -94,7 +97,7 @@ export class Color {
    *
    * @returns {Color} A new Color instance representing the default bright green color.
    */
-  static brightGreen(): Color {
+  static get brightGreen(): Color {
     return Color.table256(10);
   }
 
@@ -103,7 +106,7 @@ export class Color {
    *
    * @returns {Color} A new Color instance representing the default yellow color.
    */
-  static yellow(): Color {
+  static get yellow(): Color {
     return Color.table256(3);
   }
 
@@ -112,7 +115,7 @@ export class Color {
    *
    * @returns {Color} A new Color instance representing the default bright yellow color.
    */
-  static brightYellow(): Color {
+  static get brightYellow(): Color {
     return Color.table256(11);
   }
 
@@ -121,7 +124,7 @@ export class Color {
    *
    * @returns {Color} A new Color instance representing the default blue color.
    */
-  static blue(): Color {
+  static get blue(): Color {
     return Color.table256(4);
   }
 
@@ -130,7 +133,7 @@ export class Color {
    *
    * @returns {Color} A new Color instance representing the default bright blue color.
    */
-  static brightBlue(): Color {
+  static get brightBlue(): Color {
     return Color.table256(12);
   }
 
@@ -139,7 +142,7 @@ export class Color {
    *
    * @returns {Color} A new Color instance representing the default magenta color.
    */
-  static magenta(): Color {
+  static get magenta(): Color {
     return Color.table256(5);
   }
 
@@ -148,7 +151,7 @@ export class Color {
    *
    * @returns {Color} A new Color instance representing the default bright magenta color.
    */
-  static brightMagenta(): Color {
+  static get brightMagenta(): Color {
     return Color.table256(13);
   }
 
@@ -157,7 +160,7 @@ export class Color {
    *
    * @returns {Color} A new Color instance representing the default cyan color.
    */
-  static cyan(): Color {
+  static get cyan(): Color {
     return Color.table256(6);
   }
 
@@ -166,7 +169,7 @@ export class Color {
    *
    * @returns {Color} A new Color instance representing the default bright cyan color.
    */
-  static brightCyan(): Color {
+  static get brightCyan(): Color {
     return Color.table256(14);
   }
 
@@ -175,7 +178,7 @@ export class Color {
    *
    * @returns {Color} A new Color instance representing the default white color.
    */
-  static white(): Color {
+  static get white(): Color {
     return Color.table256(7);
   }
 
@@ -184,7 +187,7 @@ export class Color {
    *
    * @returns {Color} A new Color instance representing the default bright white color.
    */
-  static brightWhite(): Color {
+  static get brightWhite(): Color {
     return Color.table256(15);
   }
 
@@ -193,7 +196,7 @@ export class Color {
    *
    * @returns {Color} A new Color instance representing the random color.
    */
-  static random(): Color {
+  static get random(): Color {
     return Color.rgb(rand(0, 255), rand(0, 255), rand(0, 255));
   }
 
@@ -202,7 +205,7 @@ export class Color {
    *
    * @returns {Color} A partial ANSI code representing the random bright color.
    */
-  static randomBright(): Color {
+  static get randomBright(): Color {
     return Color.hsl(rand(0, 360), 100, rand(50, 85));
   }
 
@@ -211,7 +214,7 @@ export class Color {
    *
    * @returns {Color} A new Color instance representing the random dim color.
    */
-  static randomDim(): Color {
+  static get randomDim(): Color {
     return Color.hsl(rand(0, 360), 50, rand(15, 50));
   }
 
@@ -227,7 +230,8 @@ export class Color {
    * @returns {Color} A new Color instance corresponding to the provided index color.
    */
   static table256(index: number): Color {
-    if (index > 255 || index < 0) throw new InvalidParameter("index", "a number between 0-255");
+    if (index > 255 || index < 0)
+      throw new InvalidParameter("index", "a number between 0-255");
     return new Color(`5;${index}`);
   }
 
@@ -242,9 +246,12 @@ export class Color {
    * @returns {Color} A new Color instance corresponding to the provided RGB values.
    */
   static rgb(red: number, green: number, blue: number): Color {
-    if (green > 255 || green < 0) throw new InvalidParameter("green", "a number between 0-255");
-    if (blue > 255 || blue < 0) throw new InvalidParameter("blue", "a number between 0-255");
-    if (red > 255 || red < 0) throw new InvalidParameter("red", "a number between 0-255");
+    if (green > 255 || green < 0)
+      throw new InvalidParameter("green", "a number between 0-255");
+    if (blue > 255 || blue < 0)
+      throw new InvalidParameter("blue", "a number between 0-255");
+    if (red > 255 || red < 0)
+      throw new InvalidParameter("red", "a number between 0-255");
 
     return new Color(`2;${red};${green};${blue}`);
   }
@@ -258,7 +265,8 @@ export class Color {
    * @returns {Color} A new Color instance corresponding to the provided HSL values.
    */
   static hsl(hue: number, saturation: number, lightness: number): Color {
-    if (hue > 360 || hue < 0) throw new InvalidParameter("hue", "a number between 0-360");
+    if (hue > 360 || hue < 0)
+      throw new InvalidParameter("hue", "a number between 0-360");
     if (saturation > 100 || saturation < 0)
       throw new InvalidParameter("saturation", "a number between 0-100");
     if (lightness > 100 || lightness < 0)

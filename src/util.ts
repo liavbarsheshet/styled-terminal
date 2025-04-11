@@ -8,7 +8,7 @@
 import { InvalidParameter } from "./errors";
 
 // Internal seed for the XORShift32 algorithm.
-let seed = Math.floor(Math.random() * 0xFFFFFFFF);
+let seed = Math.floor(Math.random() * 0xffffffff);
 
 /**
  * Generates a 32-bit unsigned pseudo-random integer using the XORShift32 algorithm.
@@ -38,7 +38,8 @@ export function rand(min: number, max: number): number {
   if (typeof min !== "number" || typeof max !== "number")
     throw new InvalidParameter("min, max", "numbers");
 
-  if (min > max || max < 0 || min < 0) throw new InvalidParameter("min, max", "min <= max");
+  if (min > max || max < 0 || min < 0)
+    throw new InvalidParameter("min, max", "min <= max");
 
   if (max === min) return min;
 

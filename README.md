@@ -5,25 +5,18 @@
 	<br>
 </h1>
 
-> A fast, robust and lightweight terminal string styling library.
+> A fast, lightweight, and high-performance terminal string styling library.
 
 [![NPM Downloads][downloads-image]][downloads-url]
 [![npm dependents](https://badgen.net/npm/dependents/styled-terminal)](https://www.npmjs.com/package/styled-terminal?activeTab=dependents)
 [![NPM Version][npm-image]][npm-url]
 
-## Installation
+<img src="assets/snapshot.png" style="width:100%;" alt="styled-terminal logo">
 
-Installation is done using the
-[`npm install` command](https://docs.npmjs.com/getting-started/installing-npm-packages-locally):
-
-```bash
-$ npm install styled-terminal
-```
-
-## Highlights
+## Features
 
 - Supports a wide range of color formats, including 8-bit, 256-bit, RGB, HSL, and HEX.
-- Modular design enables the creation of palettes and reusable styles.
+- Modular design enables the creation of color palettes and reusable styles.
 - Does not extend `String.prototype`
 - Minimize's string pollution.
 - Ability to nest styles
@@ -34,15 +27,42 @@ $ npm install styled-terminal
 - Maintained.
 - Robust.
 
+## Support
+
+| Platform / Terminal       | Type     | Supported | Support Since                |
+| ------------------------- | -------- | --------- | ---------------------------- |
+| **Windows Console (CMD)** | Terminal | ❌        | Not supported                |
+| **Terminal.app (macOS)**  | Terminal | ✅        | Since early versions         |
+| **PowerShell 6+**         | Terminal | ✅        | Since release                |
+| **PowerShell 5.1+**       | Terminal | ✅        | Windows 10 v1511 (2016)      |
+| **Windows Terminal**      | Terminal | ✅        | Since initial release (2019) |
+| **GNOME Terminal**        | Terminal | ✅        | Since early versions         |
+| **Linux Console**         | Terminal | ✅        | Since early versions         |
+| **iTerm2 (macOS)**        | Terminal | ✅        | Since early versions         |
+| **Konsole (KDE)**         | Terminal | ✅        | Since early versions         |
+| **Chrome DevTools**       | Browser  | ✅        | Since version 69 (2018)      |
+| **Cygwin Terminal**       | Terminal | ✅        | With ANSI support enabled    |
+| **ConEmu**                | Terminal | ✅        | With ANSI support enabled    |
+| **xterm**                 | Terminal | ✅        | Since early versions         |
+
+## Installation
+
+Installation is done using the
+[`npm install` command](https://docs.npmjs.com/getting-started/installing-npm-packages-locally):
+
+```bash
+npm install styled-terminal
+```
+
 ## Declaration
 
-##### via ES5
+##### Using CommonJS (ES5)
 
 ```js
 const { style } = require("styled-terminal");
 ```
 
-##### via ES6
+##### Using ES Modules (ES6+)
 
 ```js
 import { style } from "styled-terminal";
@@ -50,334 +70,69 @@ import { style } from "styled-terminal";
 
 ## Usage
 
-### Style Object
-
-Style object structure is consist of style properties.
-
-```ts
-type StyleObject = {
-  weight?: "bold" | "light" | "auto";
-  style?: "italic";
-  decoration?: "underline" | "crossed" | "overline";
-  foreground?: Color;
-  background?: Color;
-  color?: Color;
-  bg?: Color;
-  underlineColor?: Color;
-  visibility?: "hidden" | "visible";
-  border?: "box" | "circle";
-  font?: "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "10" | "fraktur" | "gothic";
-  blink?: "slow" | "fast";
-  colorMode?: "auto" | "invert";
-};
-```
-
-#### weight Property
-
-_The weight property sets how thick or thin characters in text should be displayed, it can be set to either 'bold' or 'light'._
-
-#### colorMode Property
-
-_The colorMode property sets how the color should be displayed, it can be set to either 'auto' or 'invert'._
-
-#### visibility Property
-
-_The colorMode property specifies whether or not a text is visible, it can be set to either 'visible' or 'hidden'._
-
-#### decoration Property
-
-_The decoration property specifies what decoration will be added to the text, it can be set to either 'underline' or 'overline' or 'crossed' or a combination separated by space, for example, 'overline underline'._
-
-#### style Property
-
-_The style property specifies what style will be added to the text, it can be set to either 'italic'._
-
-#### border Property
-
-_The border property specifies what border will be added to the text, it can be set to either 'box' or 'circle'._
-
-#### font Property
-
-_The font property specifies what font will be used, it can be set to any number between 0-20 as string._
-
-#### blink Property
-
-_The blink property enables blink animation and specifies it speed, it can be set to either 'slow' or 'fast'_
-
-#### foreground|color Property
-
-_The foreground property specifies the color of text, it can only receive **Color**._
-
-#### background|bg Property
-
-_The background property sets the background color of a text, it can only receive **Color**._
-
-#### underlineColor Property
-
-_The underlineColor property sets the underline color of a text, it can only receive **Color**._
-
-### Color
-
-```ts
-type BaseColors = "black" | "red" | "green" | "yellow" | "blue" | "magenta" | "cyan" | "white";
-
-type Color =
-  | BaseColors
-  | "rand"
-  | "random"
-  | "random normal"
-  | "random semi-bright"
-  | "random bright"
-  | "random semi-dark"
-  | "random dark"
-  | "rand normal"
-  | "rand semi-bright"
-  | "rand bright"
-  | "rand semi-dark"
-  | "rand dark"
-  | "#000000"
-  | "rgb(0,0,0)"
-  | "hsl(0,0%,0%)";
-```
-
-1. **Basic Colors**
-   - 'black'
-   - 'red'
-   - 'green'
-   - 'yellow'
-   - 'blue',
-   - 'magenta'
-   - 'cyan'
-   - 'white'
-2. **rand|random** - Set to a random color.
-3. **HEX Color** - '#RRGGBB', RR (red), GG (green) and BB (blue) are hexadecimal integers between 00 and FF specifying the intensity of the color.
-4. **RGB Color** - 'rgb(red,green,blue)', Each parameter (red, green, and blue) defines the intensity of the color as an integer between 0 and 255.
-5. **HSL Color** - 'hsl(h,s%,l%)', HSL stands for hue, saturation, and lightness.
-   - Hue is a degree on the color wheel from 0 to 360.
-   - Saturation is a percentage value, 0% means a shade of gray and 100% is the full color.
-   - Lightness is also a percentage; 0% is black, 100% is white.
-
-### Apply Style
-
-Apply style on a given string.
-
-_Returns styled string._
+#### 1. Hello World Example
 
 ```js
-const style = require('styled-terminal'); // ES5
+import { style, Color } from "styled-terminal";
 
-const styleObject = {...};
-
-let result;
-
-result = style.apply('Hello World!', styleObject);
-
-// OR
-
-result = "Hello World!".style(styleObject);
-
-
-console.log(result); // prints the styled string.
-
+// Prints "Hello World!" with a random foreground color.
+console.log(style.fg(Color.random).apply("Hello World!"));
 ```
 
-### Apply Preset
-
-Apply preset (pre-made design) on a given string.
-
-_Returns styled string._
-
-```ts
-const style = require("styled-terminal"); // ES5
-
-type Preset = "rainbow" | "money";
-
-let result;
-
-result = style.preset("preset-name");
-
-// OR
-
-result = "Hello World!".preset("preset-name");
-
-console.log(result); // prints the styled string.
-```
-
-### Clear Style
-
-Clears a string from any styles.
-
-_Returns unstyled string._
+#### 2. Styled String Concatenation
 
 ```js
-const style = require("styled-terminal"); // ES5
+import { style, Color } from "styled-terminal";
 
-let styledString = "...";
+// Standard concatenation of styled strings.
+console.log(
+  style.fg(Color.green).apply("• ") +
+    style.fg(Color.blue).bold.underline.apply("Headline")
+);
 
-let result;
+// Arguments concatenation of styled strings.
+console.log(
+  style.fg(Color.green).apply("•", " "),
+  style.fg(Color.blue).bold.underline.apply("Headline")
+);
 
-result = style.clear(styledString);
-
-// OR
-
-result = styledString.clearStyle();
-
-// OR
-
-result = "...".clearStyle();
-
-console.log(result); // prints the styled string.
+// Nested concatenation of styled strings.
+console.log(
+  style
+    .fg(Color.green)
+    .apply("•", " ", style.fg(Color.blue).bold.underline.apply("Headline"))
+);
 ```
 
-### Save Style Template
-
-Saves style as template within a given name.
+#### 3. Define Custom Styles and Colors
 
 ```js
-const style = require('styled-terminal'); // ES5
+import { style, Color } from "styled-terminal";
 
-const styleObject = {...};
+// Custom Colors
+const deepSkyBlue = Color.rgb(0, 191, 255);
+const mediumOrchid = Color.hex("#BA55D3");
+const hotPink = Color.hsl(330, 100, 17);
+const darkOrange = Color.hex("#FF8C00");
+const redMagenta = Color.hex("#ff0055");
+const crimsonRed = Color.hex("#DC143C");
+const limeGreen = Color.hex("#32CD32");
+const slateBlue = Color.hex("#6A5ACD");
+const gold = Color.hex("#FFD700");
 
-style.saveStyle('template', styleObject);
+// Custom Styles.
+const headline = style.fg(deepSkyBlue).underline.bold;
+const description = style.italic;
+const highlight = style.fg(gold);
 
-console.log("Hello World!".style("template")); // prints the styled string.
+// Custom Style Function.
+const codeComment = (comment) =>
+  `${style.fg(Color.green).light.apply(`// `, comment)}`;
 
-```
+console.log(headline.apply("Headline"), highlight.bold.italic.apply("1"));
+console.log(description.apply("A short description..."));
 
-### Save Color Template
-
-Saves color as template within a given name.
-
-```js
-const style = require("styled-terminal"); // ES5
-
-style.saveColor("warm-green", "#87AA31");
-style.saveColor("black-bg", "hsl(0,100%,0%)");
-
-const styleObject = {
-  color: "warm-green",
-  bg: "black-bg",
-};
-
-console.log("Hello World!".style(styleObject)); // prints the styled string.
-```
-
-### Save Style|Color as Templates
-
-Saves template auto detection (COLOR|STYLE).
-
-```js
-const style = require('styled-terminal'); // ES5
-
-style.save("style1", {...});
-style.save("color", "#FFFFFF");
-
-```
-
-### Save Multi Style|Color Templates
-
-Saves multiples styles|colors from js object.
-
-```js
-const style = require('styled-terminal'); // ES5
-
-style.saveStyles({
-    'style1':{...},
-    'style2':{...},
-    'style3':{...},
-    ...
-});
-
-style.saveColors({
-    'color1':'#FFFFFF',
-    'color2':'hsl(0,100%,50%)',
-    'color3':'rgb(255,0,0)',
-    'color4':'random semi-dark',
-    ...
-});
-```
-
-## Rendering
-
-Render style from file.
-
-### Tags
-
-```log
-    Use tags in order to style your text.
-
-    <! color="blue" weight="bold">Hello World!</!>
-```
-
-#### Style Tag
-
-Custom style tag.
-
-```log
-    <! style_property="...">...Your text goes here...</!>
-```
-
-#### Template Tag
-
-Style from template.
-
-```log
-    <@template_name>...Your text goes here...</template_name>
-```
-
-#### Preset Tag
-
-Style from preset.
-
-```log
-    <#preset_name>...Your text goes here...</preset_name>
-```
-
-### Render
-
-Renders style of a txt file [Callback].
-
-```js
-const style = require("styled-terminal"); // ES5
-
-style.render("src", (err, res) => {
-  if (err) throw err;
-  console.log(res);
-});
-```
-
-### Render Sync
-
-Renders style of a txt file [Callback].
-
-```js
-const style = require("styled-terminal"); // ES5
-
-const result = style.renderSync("src");
-
-console.log(result);
-```
-
-### Render Async
-
-Renders style of a txt file [Promise].
-
-```js
-const style = require('styled-terminal'); // ES5
-
-style
-  .renderAsync("src")
-  .then((result) => { console.log(result);})
-  .catch((err) => {...});
-```
-
-## Demo
-
-To run the demo, first install the dependencies, then run `npm demo`:
-
-```bash
-$ npm install styled-terminal
-$ npm run demo
+console.log(codeComment("A simple comment."));
 ```
 
 ## Author

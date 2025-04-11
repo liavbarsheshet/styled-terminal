@@ -7,8 +7,8 @@
  * @copyright Liav Barsheshet <LBDevelopments> © 2025
  */
 
-import { Color, TColorCode } from "./color";
 import { InvalidParameter } from "./errors";
+import { Color } from "./color";
 
 /**
  * Represents the modifiers and their location.
@@ -143,7 +143,7 @@ export class Style {
    * @returns {Style} A new `Style` instance for fluent method chaining.
    */
   get normal(): Style {
-    return this.applyModifier(EModifiers.FontWeight, `\x1b[21m\x1b[22m`);
+    return this.applyModifier(EModifiers.FontWeight, `\x1b[22m`);
   }
 
   /**
@@ -189,6 +189,15 @@ export class Style {
    */
   get underline(): Style {
     return this.applyModifier(EModifiers.Underline, `\x1b[4m`);
+  }
+
+  /**
+   * Applies double underline styling to the text.
+   *
+   * @returns {Style} A new `Style` instance for fluent method chaining.
+   */
+  get doubleUnderline(): Style {
+    return this.applyModifier(EModifiers.Underline, `\x1b[21m`);
   }
 
   /**
@@ -261,7 +270,10 @@ export class Style {
    * @returns {Style} A new `Style` instance for fluent method chaining.
    */
   fg(color: Color): Style {
-    return this.applyModifier(EModifiers.ForegroundColor, `\x1b[38;${color.code}m`);
+    return this.applyModifier(
+      EModifiers.ForegroundColor,
+      `\x1b[38;${color.code}m`
+    );
   }
 
   /**
@@ -289,10 +301,28 @@ export class Style {
    * @returns {StyleObject} A new `Style` instance for fluent method chaining.
    */
   bg(color: Color): Style {
-    return this.applyModifier(EModifiers.BackgroundColor, `\x1b[48;${color.code}m`);
+    return this.applyModifier(
+      EModifiers.BackgroundColor,
+      `\x1b[48;${color.code}m`
+    );
   }
 
   // [Style Application]
+
+  /**
+   * Begins a style chain for terminal output.
+   * Applies the specified styles until explicitly ended.
+   */
+  start(): string {
+    return this.#chain.join("");
+  }
+
+  /**
+   * Ends the current style chain or resets terminal styles.
+   */
+  end(): string {
+    return END_SEQUENCE;
+  }
 
   /**
    * Applies a style to a string by concatenating it with additional strings.
@@ -302,13 +332,16 @@ export class Style {
    * @returns {string} The styled and concatenated string.
    */
   apply(str: string, ...args: string[]): string {
-    if (typeof str !== "string" || args.filter((v) => typeof v !== "string").length)
+    if (
+      typeof str !== "string" ||
+      args.filter((v) => typeof v !== "string").length
+    )
       throw new InvalidParameter("string, [string...]", "a valid string");
 
     // String concatenation
-    str = `${str}${args.length ? " " : ""}${args.join(" ")}`;
+    str = `${str}${args.join("")}`;
 
-    const chain: string = this.#chain.join("");
+    const chain: string = this.start();
 
     if (!chain.length || !str.length) return str;
 
@@ -317,6 +350,9 @@ export class Style {
 
     if (!segments[segments.length - 1].length) segments.pop();
 
-    return segments.map((segment) => `${chain}${segment}`).join(END_SEQUENCE) + END_SEQUENCE;
+    return (
+      segments.map((segment) => `${chain}${segment}`).join(END_SEQUENCE) +
+      END_SEQUENCE
+    );
   }
 }
