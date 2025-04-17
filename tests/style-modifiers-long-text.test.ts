@@ -1,12 +1,6 @@
-import { Style, Color } from "../src/index";
+import style, { Color } from "../src/index";
 
 describe("Style Modifiers and Long Text", () => {
-  let style: Style;
-
-  beforeEach(() => {
-    style = new Style();
-  });
-
   it("should apply multiple modifiers correctly", () => {
     const styledText = style.bold.italic.underline.strikethrough
       .fg(Color.red)
@@ -34,7 +28,9 @@ describe("Style Modifiers and Long Text", () => {
     const styledText = style.bold
       .fg(Color.red)
       .apply(
-        "Bold Red " + new Style().italic.fg(Color.blue).apply("Italic Blue ") + "Bold Red again"
+        "Bold Red " +
+          style.italic.fg(Color.blue).apply("Italic Blue ") +
+          "Bold Red again"
       );
     const expectedRed = Color.red.code;
     const expectedBlue = Color.blue.code;
@@ -50,14 +46,19 @@ describe("Style Modifiers and Long Text", () => {
       .fg(Color.green)
       .apply(longText + style.fg(Color.cyan).reset.apply(resetText));
 
-    expect(styledText).toBe(`\x1b[1m\x1b[38;5;2m${longText}${resetText}\x1b[0m`);
+    expect(styledText).toBe(
+      `\x1b[1m\x1b[38;5;2m${longText}${resetText}\x1b[0m`
+    );
   });
 
   it("should handle hidden and reveal in long texts", () => {
     const hiddenText = style.hidden.apply("Hidden Part");
     const revealedText = style.reveal.apply("Revealed Part");
     const longText =
-      "Some visible text. " + hiddenText + " Some more visible text. " + revealedText;
+      "Some visible text. " +
+      hiddenText +
+      " Some more visible text. " +
+      revealedText;
     expect(longText).toBe(
       "Some visible text. \x1b[8mHidden Part\x1b[0m Some more visible text. \x1b[28mRevealed Part\x1b[0m"
     );

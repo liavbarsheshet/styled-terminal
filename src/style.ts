@@ -41,19 +41,26 @@ const END_SEQUENCE: TAnsi = `\x1b[0m`;
 /**
  * Represents a style used for terminal text.
  */
-export class Style {
+export class Style extends Function {
   /** Chain of styles. */
-  #chain: TAnsi[];
+  modifiers: TAnsi[];
 
   private applyModifier(modifier: EModifiers, code: TAnsi = ""): Style {
     let new_style = new Style(this);
-    new_style.#chain[modifier] = code;
+    new_style.modifiers[modifier] = code;
     return new_style;
   }
 
   constructor(style?: Style) {
-    if (!style) this.#chain = [];
-    else this.#chain = [...style.#chain];
+    super();
+
+    if (!style) this.modifiers = [];
+    else this.modifiers = [...style.modifiers];
+
+    return new Proxy(this, {
+      apply: (target, thisArg, args: string[]) =>
+        target.apply(args[0], ...args.slice(1)),
+    });
   }
 
   /**
@@ -314,7 +321,7 @@ export class Style {
    * Applies the specified styles until explicitly ended.
    */
   start(): string {
-    return this.#chain.join("");
+    return this.modifiers.join("");
   }
 
   /**

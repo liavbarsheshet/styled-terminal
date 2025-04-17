@@ -1,4 +1,4 @@
-import style, { Color, Style } from "../src/index";
+import style, { Color } from "../src/index";
 
 describe("Randomness Test: Styled Terminal Output", () => {
   const TIMES = 500;

@@ -1,17 +1,16 @@
-import { Color, Style } from "../src/index";
+import { Color, style } from "../src/index";
 
 describe("Color Combinations", () => {
-  let style: Style;
-
-  beforeEach(() => {
-    style = new Style();
-  });
-
   it("should handle bright and dim colors correctly", () => {
     const brightColor = Color.brightRed;
     const dimColor = Color.hsl(0, 50, 25); // A dim red
-    const styledText = style.fg(brightColor).bg(dimColor).apply("Bright on Dim");
-    expect(styledText).toBe("\x1b[38;5;9m\x1b[48;2;96;32;32mBright on Dim\x1b[0m");
+    const styledText = style
+      .fg(brightColor)
+      .bg(dimColor)
+      .apply("Bright on Dim");
+    expect(styledText).toBe(
+      "\x1b[38;5;9m\x1b[48;2;96;32;32mBright on Dim\x1b[0m"
+    );
   });
 
   it("should handle grayscale colors correctly", () => {
