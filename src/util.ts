@@ -5,7 +5,7 @@
  * @copyright Liav Barsheshet <LBDevelopments> © 2025
  */
 
-import { InvalidParameter } from "./errors";
+import { InvalidParameter } from "./errors.js";
 
 // Internal seed for the XORShift32 algorithm.
 let seed = Math.floor(Math.random() * 0xffffffff);

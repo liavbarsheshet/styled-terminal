@@ -5,10 +5,17 @@
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/types/index.d.ts",
+  "keywords": [
+    "text-formatting",
+    "terminal",
+    "style",
+    "colors",
+    "cli"
+  ],
   "files": [
     "dist",
     "LICENSE",
-    "readme.md"
+    "README.md"
   ],
   "license": "MIT",
   "author": {
@@ -43,7 +50,8 @@
   "exports": {
     ".": {
       "import": "./dist/esm/index.js",
-      "require": "./dist/cjs/index.js"
+      "require": "./dist/cjs/index.js",
+      "types": "./dist/types/index.d.ts"
     },
     "./package.json": "./package.json"
   }

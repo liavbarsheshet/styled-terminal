@@ -7,8 +7,8 @@
  * @copyright Liav Barsheshet <LBDevelopments> © 2025
  */
 
-import { InvalidParameter } from "./errors";
-import { Color } from "./color";
+import { InvalidParameter } from "./errors.js";
+import { Color } from "./color.js";
 
 /**
  * Represents the modifiers and their location.

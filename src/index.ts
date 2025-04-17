@@ -6,8 +6,8 @@
  * @author Liav Barsheshet <liavbarsheshet@gmail.com>
  * @copyright Liav Barsheshet <LBDevelopments> © 2025
  */
-import { Color } from "./color";
-import { Style } from "./style";
+import { Color } from "./color.js";
+import { Style } from "./style.js";
 
 const style = new Style();
 

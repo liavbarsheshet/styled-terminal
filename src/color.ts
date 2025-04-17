@@ -6,8 +6,8 @@
  * @author Liav Barsheshet <liavbarsheshet@gmail.com>
  * @copyright Liav Barsheshet <LBDevelopments> © 2025
  */
-import { InvalidParameter } from "./errors";
-import { rand } from "./util";
+import { InvalidParameter } from "./errors.js";
+import { rand } from "./util.js";
 
 /** Represents a partial ansi color escape code. */
 export type TColorCode = string;
