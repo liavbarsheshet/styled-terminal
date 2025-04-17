@@ -1,6 +1,6 @@
 {
   "name": "styled-terminal",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "A fast, lightweight, and high-performance terminal string styling library.",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
