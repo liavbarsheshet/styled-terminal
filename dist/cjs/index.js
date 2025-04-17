@@ -1,0 +1,10 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.Color = exports.Style = exports.style = exports.default = void 0;
+const color_js_1 = require("./color.js");
+Object.defineProperty(exports, "Color", { enumerable: true, get: function () { return color_js_1.Color; } });
+const style_js_1 = require("./style.js");
+Object.defineProperty(exports, "Style", { enumerable: true, get: function () { return style_js_1.Style; } });
+const style = new style_js_1.Style();
+exports.default = style;
+exports.style = style;
