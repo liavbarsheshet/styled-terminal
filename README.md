@@ -1,6 +1,6 @@
 <h1 align="center">
 	<br>
-	<img src="assets/logo.png" alt="styled-terminal logo">
+	<img src="https://raw.githubusercontent.com/liavbarsheshet/styled-terminal/refs/heads/main/assets/logo.png" alt="styled-terminal logo">
 	<br>
 	<br>
 </h1>
@@ -11,7 +11,7 @@
 [![npm dependents](https://badgen.net/npm/dependents/styled-terminal)](https://www.npmjs.com/package/styled-terminal?activeTab=dependents)
 [![NPM Version][npm-image]][npm-url]
 
-<img src="assets/snapshot.png" style="width:100%;" alt="styled-terminal logo">
+<img src="https://raw.githubusercontent.com/liavbarsheshet/styled-terminal/refs/heads/main/assets/snapshot.png" style="width:100%;" alt="snapshot">
 
 ## Features
 
@@ -20,9 +20,9 @@
 - Does not extend `String.prototype`
 - Minimize's string pollution.
 - Ability to nest styles.
-- Lightweight `< 40Kb`.
 - Highly performant.
 - No dependencies.
+- Lightweight.
 - Expressive.
 - Maintained.
 - Robust.
