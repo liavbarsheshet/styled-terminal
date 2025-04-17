@@ -317,7 +317,7 @@ export class Color {
   /**
    * Creates a `Color` instance from a hexadecimal color code.
    *
-   * @param hexCode A string representing the color in hexadecimal format (e.g., `#FF5733` or `FF5733`).
+   * @param hexCode A string representing the color in hexadecimal format (e.g., `#FF5733`).
    * @returns {Color} A new Color instance corresponding to the provided hex code.
    */
   static hex(hexCode: string): Color {

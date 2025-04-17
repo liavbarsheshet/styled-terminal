@@ -12,4 +12,4 @@ import { Style } from "./style";
 const style = new Style();
 
 // Exposing API
-export { style as default, style, Color };
+export { style as default, style, Style, Color };
