@@ -200,4 +200,3 @@ export declare class Style extends Function {
     apply(str: string, ...args: string[]): string;
 }
 export {};
-//# sourceMappingURL=style.d.ts.map

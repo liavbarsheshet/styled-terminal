@@ -4,7 +4,7 @@
     "moduleResolution": "node",
     "declaration": true,
     "declarationDir": "dist/types",
-    "declarationMap": true,
+    "declarationMap": false,
     "strict": true
   },
   "include": ["src/**/*.ts"]

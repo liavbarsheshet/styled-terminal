@@ -1,5 +1,5 @@
 /** Represents a partial ansi color escape code. */
-export type TColorCode = string;
+type TColorCode = string;
 /**
  * Represents a Color.
  */
@@ -166,4 +166,4 @@ export declare class Color {
      */
     static hex(hexCode: string): Color;
 }
-//# sourceMappingURL=color.d.ts.map
+export {};

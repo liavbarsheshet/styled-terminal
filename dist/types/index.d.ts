@@ -10,4 +10,3 @@ import { Color } from "./color.js";
 import { Style } from "./style.js";
 declare const style: Style;
 export { style as default, style, Style, Color };
-//# sourceMappingURL=index.d.ts.map

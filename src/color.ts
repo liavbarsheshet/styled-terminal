@@ -9,7 +9,7 @@
 import { rand } from "./util.js";
 
 /** Represents a partial ansi color escape code. */
-export type TColorCode = string;
+type TColorCode = string;
 
 /**
  * Represents a Color.

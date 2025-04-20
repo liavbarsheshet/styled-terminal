@@ -9,4 +9,3 @@
  * @returns {number} A pseudo-random integer within the specified range.
  */
 export declare function rand(min: number, max: number): number;
-//# sourceMappingURL=util.d.ts.map
