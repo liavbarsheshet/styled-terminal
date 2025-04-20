@@ -17,7 +17,7 @@
 
 - Supports a wide range of color formats, including 8-bit, 256-bit, RGB, HSL, and HEX.
 - Modular design enables the creation of color palettes and reusable styles.
-- Does not extend `String.prototype`
+- Does not extend `String.prototype`.
 - Minimize's string pollution.
 - Ability to nest styles.
 - Highly performant.
@@ -99,7 +99,12 @@ console.log(
 );
 
 // Nested concatenation:
-console.log(style.fg(Color.green)("•", " ", style.fg(Color.blue).bold.underline("Headline"))
+console.log(
+  style.fg(Color.green)(
+    "•",
+    " ",
+    style.fg(Color.blue).bold.underline("Headline")
+  )
 );
 ```
 
@@ -218,32 +223,36 @@ _Gets a random dim color._
 
 #### `Color.table256(index)`
 
-[_256 Color's list_](https://www.ditig.com/256-colors-cheat-sheet)
 _Creates a `Color` object by choosing an index from the 256-color lookup table._
-_`index {number}` A number between 0-255 which represent a cell index._
+
+- _`index {number}` A number between 0-255 which represent a cell index._
+- [_Select a color from the 256 Color's table_](https://www.ditig.com/256-colors-cheat-sheet).
 
 #### True Colors
 
-[_An online color picker._](https://g.co/kgs/5PSjquY)
+- [_Pick a true color in HEX, RGB or HSL format._](https://g.co/kgs/5PSjquY)
 
 #### `Color.rgb(red, green, blue)`
 
 _Creates a `Color` object from RGB (Red, Green, Blue) values._
-_`red {number}` The red component of the color, typically a value between 0 and 255._
-_`green {number}` The green component of the color, typically a value between 0 and 255._
-_`blue {number}` The blue component of the color, typically a value between 0 and 255._
+
+- _`red {number}` The red component of the color, typically a value between 0 and 255._
+- _`green {number}` The green component of the color, typically a value between 0 and 255._
+- _`blue {number}` The blue component of the color, typically a value between 0 and 255._
 
 #### `Color.hsl(hue, saturation, lightness)`
 
 _Creates a `Color` object from HSL (Hue, Saturation, Lightness) values._
-_`hue {number}` The hue of the color, typically a value between 0 and 360 degrees._
-_`saturation {number}` The saturation of the color, typically a percentage value between 0 and 100._
-_`lightness {number}` The lightness of the color, typically a percentage value between 0 and 100._
+
+- _`hue {number}` The hue of the color, typically a value between 0 and 360 degrees._
+- _`saturation {number}` The saturation of the color, typically a percentage value between 0 and 100._
+- _`lightness {number}` The lightness of the color, typically a percentage value between 0 and 100._
 
 #### `Color.hex(hexCode)`
 
 _Creates a `Color` instance from a hexadecimal color code._
-_`hexCode {string}` A string representing the color in hexadecimal format (e.g., `#FF5733`)._
+
+- _`hexCode {string}` A string representing the color in hexadecimal format (e.g., `#FF5733`)._
 
 ## `<class Style>`
 
@@ -358,12 +367,12 @@ _Setting the background color to be auto._
 #### `fg(color)`
 
 _Sets the foreground color of the text._
-_`color {Color}` A Color instance representing a color._
+- _`color {Color}` A Color instance representing a color._
 
 #### `bg(color)`
 
 _Sets the background color of the text._
-_`color {Color}` A Color instance representing a color._
+- _`color {Color}` A Color instance representing a color._
 
 ### Methods
 
@@ -402,8 +411,8 @@ _Ends the current style chain or resets terminal styles._
 #### `apply(str, ...args)`
 
 _Applies a style to a string by concatenating it with additional strings._
-_`str {string}` The base string to apply the style to._
-_`args {string[]}` Additional strings to concatenate._
+- _`str {string}` The base string to apply the style to._
+- _`args {string[]}` Additional strings to concatenate._
 
 ## Contributing
 

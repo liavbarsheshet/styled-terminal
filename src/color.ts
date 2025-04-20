@@ -6,7 +6,6 @@
  * @author Liav Barsheshet <liavbarsheshet@gmail.com>
  * @copyright Liav Barsheshet <LBDevelopments> © 2025
  */
-import { InvalidParameter } from "./errors.js";
 import { rand } from "./util.js";
 
 /** Represents a partial ansi color escape code. */
@@ -29,10 +28,7 @@ export class Color {
       /^(?:(?:5;(?:(?:\d)|(?:[1-9]\d)|(?:1\d\d)|(?:2[0-4]\d)|(?:25[0-5])))|(?:2;(?:(?:\d)|(?:[1-9]\d)|(?:1\d\d)|(?:2[0-4]\d)|(?:25[0-5]));(?:(?:\d)|(?:[1-9]\d)|(?:1\d\d)|(?:2[0-4]\d)|(?:25[0-5]));(?:(?:\d)|(?:[1-9]\d)|(?:1\d\d)|(?:2[0-4]\d)|(?:25[0-5]))))$/;
 
     if (!regex.test(code))
-      throw new InvalidParameter(
-        "code",
-        "in the format '5;[0-255]' or 2;[red];[green];[blue]"
-      );
+      throw new TypeError("Expected a valid ansi code as value parameter.");
 
     this.#code = code;
   }
@@ -231,7 +227,9 @@ export class Color {
    */
   static table256(index: number): Color {
     if (index > 255 || index < 0)
-      throw new InvalidParameter("index", "a number between 0-255");
+      throw new TypeError(
+        "Expected a number between 0-255 as value parameter."
+      );
     return new Color(`5;${index}`);
   }
 
@@ -247,11 +245,11 @@ export class Color {
    */
   static rgb(red: number, green: number, blue: number): Color {
     if (green > 255 || green < 0)
-      throw new InvalidParameter("green", "a number between 0-255");
+      throw new TypeError("Expected green to be a number between 0-255.");
     if (blue > 255 || blue < 0)
-      throw new InvalidParameter("blue", "a number between 0-255");
+      throw new TypeError("Expected blue to be a number between 0-255.");
     if (red > 255 || red < 0)
-      throw new InvalidParameter("red", "a number between 0-255");
+      throw new TypeError("Expected red to be a number between 0-255.");
 
     return new Color(`2;${red};${green};${blue}`);
   }
@@ -266,11 +264,11 @@ export class Color {
    */
   static hsl(hue: number, saturation: number, lightness: number): Color {
     if (hue > 360 || hue < 0)
-      throw new InvalidParameter("hue", "a number between 0-360");
+      throw new TypeError("Expected hue to be a number between 0-360.");
     if (saturation > 100 || saturation < 0)
-      throw new InvalidParameter("saturation", "a number between 0-100");
+      throw new TypeError("Expected saturation to be a number between 0-100.");
     if (lightness > 100 || lightness < 0)
-      throw new InvalidParameter("lightness", "a number between 0-100");
+      throw new TypeError("Expected lightness to be a number between 0-100.");
 
     const s = saturation / 100;
     const l = lightness / 100;
@@ -322,7 +320,9 @@ export class Color {
    */
   static hex(hexCode: string): Color {
     if (!/^#?([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/.test(hexCode))
-      throw new InvalidParameter("hexCode", "a valid hex color code.");
+      throw new TypeError(
+        "Expected a valid hexadecimal color code as value parameter."
+      );
 
     hexCode = hexCode.replace("#", "");
 

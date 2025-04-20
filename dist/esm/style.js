@@ -1,15 +1,3 @@
-import { InvalidParameter } from "./errors.js";
-var EModifiers;
-(function (EModifiers) {
-    EModifiers[EModifiers["FontWeight"] = 0] = "FontWeight";
-    EModifiers[EModifiers["Italic"] = 1] = "Italic";
-    EModifiers[EModifiers["Underline"] = 2] = "Underline";
-    EModifiers[EModifiers["Strikethrough"] = 3] = "Strikethrough";
-    EModifiers[EModifiers["ForegroundColor"] = 4] = "ForegroundColor";
-    EModifiers[EModifiers["BackgroundColor"] = 5] = "BackgroundColor";
-    EModifiers[EModifiers["Invert"] = 6] = "Invert";
-    EModifiers[EModifiers["Visibility"] = 7] = "Visibility";
-})(EModifiers || (EModifiers = {}));
 const END_SEQUENCE = `\x1b[0m`;
 export class Style extends Function {
     modifiers;
@@ -32,82 +20,82 @@ export class Style extends Function {
         return new Style();
     }
     get hidden() {
-        return this.applyModifier(EModifiers.Visibility, `\x1b[8m`);
+        return this.applyModifier(7, `\x1b[8m`);
     }
     get reveal() {
-        return this.applyModifier(EModifiers.Visibility, `\x1b[28m`);
+        return this.applyModifier(7, `\x1b[28m`);
     }
     get autoVisibility() {
-        return this.applyModifier(EModifiers.Visibility);
+        return this.applyModifier(7);
     }
     get invert() {
-        return this.applyModifier(EModifiers.Invert, `\x1b[7m`);
+        return this.applyModifier(6, `\x1b[7m`);
     }
     get noInvert() {
-        return this.applyModifier(EModifiers.Invert, `\x1b[27m`);
+        return this.applyModifier(6, `\x1b[27m`);
     }
     get autoInvert() {
-        return this.applyModifier(EModifiers.Invert);
+        return this.applyModifier(6);
     }
     get bold() {
-        return this.applyModifier(EModifiers.FontWeight, `\x1b[1m`);
+        return this.applyModifier(0, `\x1b[1m`);
     }
     get light() {
-        return this.applyModifier(EModifiers.FontWeight, `\x1b[2m`);
+        return this.applyModifier(0, `\x1b[2m`);
     }
     get normal() {
-        return this.applyModifier(EModifiers.FontWeight, `\x1b[22m`);
+        return this.applyModifier(0, `\x1b[22m`);
     }
     get autoFontWeight() {
-        return this.applyModifier(EModifiers.FontWeight);
+        return this.applyModifier(0);
     }
     get italic() {
-        return this.applyModifier(EModifiers.Italic, `\x1b[3m`);
+        return this.applyModifier(1, `\x1b[3m`);
     }
     get noItalic() {
-        return this.applyModifier(EModifiers.Italic, `\x1b[23m`);
+        return this.applyModifier(1, `\x1b[23m`);
     }
     get autoItalic() {
-        return this.applyModifier(EModifiers.Italic);
+        return this.applyModifier(1);
     }
     get underline() {
-        return this.applyModifier(EModifiers.Underline, `\x1b[4m`);
+        return this.applyModifier(2, `\x1b[4m`);
     }
     get doubleUnderline() {
-        return this.applyModifier(EModifiers.Underline, `\x1b[21m`);
+        return this.applyModifier(2, `\x1b[21m`);
     }
     get noUnderline() {
-        return this.applyModifier(EModifiers.Underline, `\x1b[24m`);
+        return this.applyModifier(2, `\x1b[24m`);
     }
     get autoUnderline() {
-        return this.applyModifier(EModifiers.Underline);
+        return this.applyModifier(2);
     }
     get strikethrough() {
-        return this.applyModifier(EModifiers.Strikethrough, `\x1b[9m`);
+        return this.applyModifier(3, `\x1b[9m`);
     }
     get noStrikethrough() {
-        return this.applyModifier(EModifiers.Strikethrough, `\x1b[29m`);
+        return this.applyModifier(3, `\x1b[29m`);
     }
     get autoStrikethrough() {
-        return this.applyModifier(EModifiers.Strikethrough);
+        return this.applyModifier(3);
     }
     get resetFg() {
-        return this.applyModifier(EModifiers.ForegroundColor, `\x1b[39m`);
+        return this.applyModifier(4, `\x1b[39m`);
     }
     get autoFg() {
-        return this.applyModifier(EModifiers.ForegroundColor);
+        return this.applyModifier(4);
     }
     fg(color) {
-        return this.applyModifier(EModifiers.ForegroundColor, `\x1b[38;${color.code}m`);
+        return this.applyModifier(4, `\x1b[38;${color.code}m`);
     }
     get resetBg() {
-        return this.applyModifier(EModifiers.BackgroundColor, `\x1b[49m`);
+        return this.applyModifier(5, `\x1b[49m`);
     }
     get autoBg() {
-        return this.applyModifier(EModifiers.BackgroundColor);
+        return this.applyModifier(5);
     }
     bg(color) {
-        return this.applyModifier(EModifiers.BackgroundColor, `\x1b[48;${color.code}m`);
+        return this.applyModifier(5, `\x1b[48;${color.code}m`);
     }
     start() {
         return this.modifiers.join("");
@@ -118,7 +106,7 @@ export class Style extends Function {
     apply(str, ...args) {
         if (typeof str !== "string" ||
             args.filter((v) => typeof v !== "string").length)
-            throw new InvalidParameter("string, [string...]", "a valid string");
+            throw new TypeError("Expected a string, [string...] as value parameters.");
         str = `${str}${args.join("")}`;
         const chain = this.start();
         if (!chain.length || !str.length)

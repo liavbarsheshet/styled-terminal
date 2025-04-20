@@ -4,9 +4,6 @@
  * @author Liav Barsheshet <liavbarsheshet@gmail.com>
  * @copyright Liav Barsheshet <LBDevelopments> © 2025
  */
-
-import { InvalidParameter } from "./errors.js";
-
 // Internal seed for the XORShift32 algorithm.
 let seed = Math.floor(Math.random() * 0xffffffff);
 
@@ -36,10 +33,12 @@ function randXorShift32(): number {
  */
 export function rand(min: number, max: number): number {
   if (typeof min !== "number" || typeof max !== "number")
-    throw new InvalidParameter("min, max", "numbers");
+    throw new TypeError("Expected a numbers as value parameters.");
 
   if (min > max || max < 0 || min < 0)
-    throw new InvalidParameter("min, max", "min <= max");
+    throw new RangeError(
+      "Invalid range: min and max must be non-negative, and min must be less than or equal to max"
+    );
 
   if (max === min) return min;
 

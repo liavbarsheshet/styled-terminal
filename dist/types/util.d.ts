@@ -1,10 +1,4 @@
 /**
- * @fileoverview Utilities.
- *
- * @author Liav Barsheshet <liavbarsheshet@gmail.com>
- * @copyright Liav Barsheshet <LBDevelopments> © 2025
- */
-/**
  * Generates a pseudo-random integer within a specified inclusive range.
  *
  * This function utilizes the `randXorShift32` function to produce a pseudo-random

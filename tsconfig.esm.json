@@ -2,6 +2,8 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "removeComments": true,
+    "inlineSources": false,
+    "sourceMap": false,
     "outDir": "dist/esm",
     "module": "ESNext"
   },

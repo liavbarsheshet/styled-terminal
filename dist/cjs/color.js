@@ -1,14 +1,13 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Color = void 0;
-const errors_js_1 = require("./errors.js");
 const util_js_1 = require("./util.js");
 class Color {
     #code;
     constructor(code) {
         const regex = /^(?:(?:5;(?:(?:\d)|(?:[1-9]\d)|(?:1\d\d)|(?:2[0-4]\d)|(?:25[0-5])))|(?:2;(?:(?:\d)|(?:[1-9]\d)|(?:1\d\d)|(?:2[0-4]\d)|(?:25[0-5]));(?:(?:\d)|(?:[1-9]\d)|(?:1\d\d)|(?:2[0-4]\d)|(?:25[0-5]));(?:(?:\d)|(?:[1-9]\d)|(?:1\d\d)|(?:2[0-4]\d)|(?:25[0-5]))))$/;
         if (!regex.test(code))
-            throw new errors_js_1.InvalidParameter("code", "in the format '5;[0-255]' or 2;[red];[green];[blue]");
+            throw new TypeError("Expected a valid ansi code as value parameter.");
         this.#code = code;
     }
     get code() {
@@ -73,25 +72,25 @@ class Color {
     }
     static table256(index) {
         if (index > 255 || index < 0)
-            throw new errors_js_1.InvalidParameter("index", "a number between 0-255");
+            throw new TypeError("Expected a number between 0-255 as value parameter.");
         return new Color(`5;${index}`);
     }
     static rgb(red, green, blue) {
         if (green > 255 || green < 0)
-            throw new errors_js_1.InvalidParameter("green", "a number between 0-255");
+            throw new TypeError("Expected green to be a number between 0-255.");
         if (blue > 255 || blue < 0)
-            throw new errors_js_1.InvalidParameter("blue", "a number between 0-255");
+            throw new TypeError("Expected blue to be a number between 0-255.");
         if (red > 255 || red < 0)
-            throw new errors_js_1.InvalidParameter("red", "a number between 0-255");
+            throw new TypeError("Expected red to be a number between 0-255.");
         return new Color(`2;${red};${green};${blue}`);
     }
     static hsl(hue, saturation, lightness) {
         if (hue > 360 || hue < 0)
-            throw new errors_js_1.InvalidParameter("hue", "a number between 0-360");
+            throw new TypeError("Expected hue to be a number between 0-360.");
         if (saturation > 100 || saturation < 0)
-            throw new errors_js_1.InvalidParameter("saturation", "a number between 0-100");
+            throw new TypeError("Expected saturation to be a number between 0-100.");
         if (lightness > 100 || lightness < 0)
-            throw new errors_js_1.InvalidParameter("lightness", "a number between 0-100");
+            throw new TypeError("Expected lightness to be a number between 0-100.");
         const s = saturation / 100;
         const l = lightness / 100;
         const c = (1 - Math.abs(2 * l - 1)) * s;
@@ -132,7 +131,7 @@ class Color {
     }
     static hex(hexCode) {
         if (!/^#?([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/.test(hexCode))
-            throw new errors_js_1.InvalidParameter("hexCode", "a valid hex color code.");
+            throw new TypeError("Expected a valid hexadecimal color code as value parameter.");
         hexCode = hexCode.replace("#", "");
         if (hexCode.length === 3) {
             hexCode = hexCode

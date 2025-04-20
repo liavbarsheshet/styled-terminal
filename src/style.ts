@@ -6,14 +6,12 @@
  * @author Liav Barsheshet <liavbarsheshet@gmail.com>
  * @copyright Liav Barsheshet <LBDevelopments> © 2025
  */
-
-import { InvalidParameter } from "./errors.js";
 import { Color } from "./color.js";
 
 /**
  * Represents the modifiers and their location.
  */
-enum EModifiers {
+const enum EModifiers {
   /** Represents font weight modifier (Bold, Light and Normal). */
   FontWeight,
   /** Represent italic modifier.*/
@@ -343,7 +341,9 @@ export class Style extends Function {
       typeof str !== "string" ||
       args.filter((v) => typeof v !== "string").length
     )
-      throw new InvalidParameter("string, [string...]", "a valid string");
+      throw new TypeError(
+        "Expected a string, [string...] as value parameters."
+      );
 
     // String concatenation
     str = `${str}${args.join("")}`;
