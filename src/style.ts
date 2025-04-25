@@ -6,7 +6,7 @@
  * @author Liav Barsheshet <liavbarsheshet@gmail.com>
  * @copyright Liav Barsheshet <LBDevelopments> © 2025
  */
-import { Color } from "./color.js";
+import { Color } from "./color.ts";
 
 /**
  * Represents the modifiers and their location.
@@ -49,6 +49,12 @@ export class Style extends Function {
     return new_style;
   }
 
+  /**
+   * Constructs a new Style instance.
+   * @constructor
+   * @param style a Style instance to copy from.
+   * @returns a new unique Style instance.
+   */
   constructor(style?: Style) {
     super();
 
@@ -336,7 +342,7 @@ export class Style extends Function {
    * @param args Additional strings to concatenate.
    * @returns {string} The styled and concatenated string.
    */
-  apply(str: string, ...args: string[]): string {
+  override apply(str: string, ...args: string[]): string {
     if (
       typeof str !== "string" ||
       args.filter((v) => typeof v !== "string").length

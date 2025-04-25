@@ -1,0 +1,40 @@
+{
+  "name": "@liavbarsheshet/styled-terminal",
+  "version": "2.1.2",
+  "description": "A fast, lightweight, and high-performance terminal string styling library.",
+  "exports": "./src/index.ts",
+  "keywords": [
+    "command-line",
+    "terminal",
+    "logging",
+    "styling",
+    "console",
+    "format",
+    "string",
+    "styles",
+    "colors",
+    "color",
+    "style",
+    "xterm",
+    "shell",
+    "ansi",
+    "text",
+    "hsl",
+    "hex",
+    "rgb",
+    "log",
+    "tty",
+    "cli"
+  ],
+  "author": {
+    "name": "Liav Barsheshet",
+    "email": "liavbarsheshet@gmail.com",
+    "url": "https://github.com/liavbarsheshet"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/liavbarsheshet/styled-terminal.git"
+  },
+  "homepage": "https://github.com/liavbarsheshet/styled-terminal#readme",
+  "license": "MIT"
+}

@@ -6,7 +6,7 @@
  * @author Liav Barsheshet <liavbarsheshet@gmail.com>
  * @copyright Liav Barsheshet <LBDevelopments> © 2025
  */
-import { rand } from "./util.js";
+import { rand } from "./util.ts";
 
 /** Represents a partial ansi color escape code. */
 type TColorCode = string;
